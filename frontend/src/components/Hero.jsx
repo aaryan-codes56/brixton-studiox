@@ -70,7 +70,7 @@ const Hero = () => {
             className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-[var(--gradient-brand)] text-text-white font-body font-semibold text-[15px] tracking-[0.03em] shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_50px_rgba(124,58,237,0.6)] transform hover:-translate-y-1 transition-all"
           >
             <Play size={18} fill="currentColor" strokeWidth={0} />
-            View Our Showreel
+            Explore Our Work
           </Link>
           <Link 
             to="/services"

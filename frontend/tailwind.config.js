@@ -36,8 +36,8 @@ export default {
         }
       },
       fontFamily: {
-        display: ['var(--font-display)', 'sans-serif'],
-        body: ['var(--font-body)', 'sans-serif'],
+        display: ['Poppins', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
       },
       animation: {
         'orb-flow': 'orb-flow 6s ease-in-out infinite alternate',

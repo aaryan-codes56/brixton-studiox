@@ -85,7 +85,7 @@ const PricingTeaser = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: idx * 0.1 }}
-            className={`group relative flex flex-col bg-card border ${plan.highlight ? 'border-accent-gold-light/30 shadow-[0_0_40px_rgba(245,158,11,0.1)]' : 'border-border-subtle'} p-8 rounded-2xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-md ${plan.border} w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] xl:w-[calc(20%-20px)] min-w-[280px]`}
+            className={`group relative flex flex-col bg-card border ${plan.highlight ? 'border-accent-gold-light/30 shadow-[0_0_40px_rgba(245,158,11,0.1)]' : 'border-border-subtle'} p-8 rounded-2xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-md ${plan.border} w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] min-w-[280px] max-w-[400px]`}
           >
             {plan.highlight && (
                <div className="absolute -top-[14px] left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[var(--gradient-brand)] text-text-white font-body font-bold text-[10px] tracking-widest uppercase shadow-lg z-10 whitespace-nowrap">
