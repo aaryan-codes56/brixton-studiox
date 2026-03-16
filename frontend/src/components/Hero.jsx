@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Play } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
@@ -66,11 +66,10 @@ const Hero = () => {
           className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
         >
           <Link 
-            to="/work"
-            className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-[var(--gradient-brand)] text-text-white font-body font-semibold text-[15px] tracking-[0.03em] shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_50px_rgba(124,58,237,0.6)] transform hover:-translate-y-1 transition-all"
+            to="/contact"
+            className="w-full sm:w-auto px-10 py-4 rounded-full bg-[var(--gradient-brand)] text-text-white font-body font-semibold text-[15px] tracking-[0.03em] shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:shadow-[0_0_50px_rgba(124,58,237,0.6)] transform hover:-translate-y-1 transition-all"
           >
-            <Play size={18} fill="currentColor" strokeWidth={0} />
-            Explore Our Work
+            Book Free Call
           </Link>
           <Link 
             to="/services"

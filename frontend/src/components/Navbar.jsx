@@ -81,12 +81,6 @@ const Navbar = () => {
             );
           })}
           
-          <Link 
-            to="/contact" 
-            className="ml-2 px-6 py-2.5 rounded-full bg-[var(--gradient-brand)] text-text-white font-body font-semibold text-[13px] tracking-[0.03em] shadow-[0_0_24px_rgba(124,58,237,0.35)] hover:shadow-[0_0_40px_rgba(124,58,237,0.55)] transform hover:-translate-y-px transition-all"
-          >
-            Book Free Call
-          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -120,14 +114,6 @@ const Navbar = () => {
                 </Link>
                );
             })}
-            
-            <Link 
-              to="/contact" 
-              onClick={() => setIsOpen(false)}
-              className="mt-4 px-10 py-4 rounded-full bg-[var(--gradient-brand)] text-text-white font-body font-semibold text-[18px] tracking-[0.03em] shadow-[0_0_30px_rgba(124,58,237,0.4)]"
-            >
-              Book Free Call
-            </Link>
           </motion.div>
         )}
       </AnimatePresence>
