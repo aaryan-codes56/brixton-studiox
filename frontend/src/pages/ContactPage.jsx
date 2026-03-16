@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Phone, Loader2, MapPin, Mail } from 'lucide-react';
+import { MessageCircle, Phone, Loader2, MapPin, Mail, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
 import Navbar from '../components/Navbar';
@@ -118,6 +118,30 @@ export default function ContactPage() {
                     <p className="text-text-secondary text-[15px] font-body">
                       brixtonstudiox@gmail.com
                     </p>
+                  </div>
+                </div>
+
+                <div className="bg-card border border-border-subtle p-6 rounded-2xl">
+                  <h3 className="text-lg font-body font-semibold text-text-white mb-4">Follow Our Journey</h3>
+                  <div className="flex flex-wrap gap-4">
+                    {[
+                      { icon: <Facebook size={20} />, url: 'https://www.facebook.com/share/1G2MS3rUnn/', label: 'Facebook' },
+                      { icon: <Instagram size={20} />, url: 'https://www.instagram.com/brixtonstudiox.official?igsh=MzY4NnNwaHY1MnFu', label: 'Instagram' },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M12 12c-2.5 0-4.5-2-4.5-4.5S9.5 3 12 3s4.5 2 4.5 4.5V12a6 6 0 0 1-12 0V9" /></svg>, url: 'https://www.threads.com/@brixtonstudiox.official', label: 'Threads' },
+                      { icon: <Twitter size={20} />, url: 'https://x.com/brixtonstudiox', label: 'X' },
+                      { icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/company/brixton-studiox/about/?viewAsMember=true', label: 'LinkedIn' }
+                    ].map((social) => (
+                      <a 
+                        key={social.label} 
+                        href={social.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="p-3 bg-[rgba(255,255,255,0.03)] border border-border-subtle rounded-xl text-text-secondary hover:text-accent-violet-light hover:border-accent-violet-light/30 transition-all"
+                        title={social.label}
+                      >
+                        {social.icon}
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>

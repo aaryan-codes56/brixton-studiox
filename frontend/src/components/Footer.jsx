@@ -1,4 +1,11 @@
 import { Link } from 'react-router-dom';
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+
+const ThreadsIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+    <path d="M12 12c-2.5 0-4.5-2-4.5-4.5S9.5 3 12 3s4.5 2 4.5 4.5V12a6 6 0 0 1-12 0V9" />
+  </svg>
+);
 
 const Footer = () => {
   return (
@@ -68,10 +75,22 @@ const Footer = () => {
           <p className="font-body text-[12px] text-text-muted">
             © {new Date().getFullYear()} Brixton StudioX. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-             <a href="https://www.instagram.com/brixtonstudiox.official?igsh=MzY4NnNwaHY1MnFu" target="_blank" rel="noopener noreferrer" className="font-body text-[13px] text-text-secondary hover:text-accent-violet-light transition-colors">Instagram</a>
-             <a href="#" className="font-body text-[13px] text-text-secondary hover:text-accent-violet-light transition-colors">YouTube</a>
-             <a href="#" className="font-body text-[13px] text-text-secondary hover:text-accent-violet-light transition-colors">LinkedIn</a>
+          <div className="flex items-center gap-5">
+             <a href="https://www.facebook.com/share/1G2MS3rUnn/" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="Facebook">
+               <Facebook size={18} />
+             </a>
+             <a href="https://www.instagram.com/brixtonstudiox.official?igsh=MzY4NnNwaHY1MnFu" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="Instagram">
+               <Instagram size={18} />
+             </a>
+             <a href="https://www.threads.com/@brixtonstudiox.official" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="Threads">
+               <ThreadsIcon />
+             </a>
+             <a href="https://x.com/brixtonstudiox" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="X (Twitter)">
+               <Twitter size={18} />
+             </a>
+             <a href="https://www.linkedin.com/company/brixton-studiox/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="LinkedIn">
+               <Linkedin size={18} />
+             </a>
           </div>
         </div>
       </div>
