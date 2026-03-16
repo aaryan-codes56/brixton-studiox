@@ -5,17 +5,19 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsappBtn from '../components/WhatsappBtn';
 
-const categories = ['All', 'Brand Films', 'Short-Form', 'Commercials'];
+const categories = ['All', 'Brand Films', 'Short-Form', 'Websites', 'Apps', 'Commercials'];
 
 const portfolioItems = [
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
-  { id: 3, category: 'Commercials', client: 'TechNova', color: 'text-accent-ice', size: 'aspect-[16/9]' },
-  { id: 4, category: 'Short-Form', client: 'FitHub', color: 'text-accent-rose', size: 'aspect-[9/16]' },
-  { id: 5, category: 'Commercials', client: 'Urban Wear', color: 'text-accent-gold-light', size: 'aspect-[16/9]' },
-  { id: 6, category: 'Brand Films', client: 'Elevate Real Estate', color: 'text-accent-ice', size: 'aspect-[4/5]' },
-  { id: 7, category: 'Short-Form', client: 'Glow Cosmetics', color: 'text-accent-violet-light', size: 'aspect-[9/16]' },
-  { id: 8, category: 'Brand Films', client: 'Apex Motors', color: 'text-accent-rose', size: 'aspect-square' },
+  { id: 3, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', size: 'aspect-[16/9]' },
+  { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', size: 'aspect-[9/16]' },
+  { id: 5, category: 'Websites', client: 'Vogue E-comm', color: 'text-accent-gold-light', size: 'aspect-[4/5]' },
+  { id: 6, category: 'Apps', client: 'CryptoTrack', color: 'text-accent-ice', size: 'aspect-[16/9]' },
+  { id: 7, category: 'Brand Films', client: 'Elevate Real Estate', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
+  { id: 8, category: 'Short-Form', client: 'Glow Cosmetics', color: 'text-accent-rose', size: 'aspect-[9/16]' },
+  { id: 9, category: 'Websites', client: 'Horizon Homes', color: 'text-accent-violet-light', size: 'aspect-square' },
+  { id: 10, category: 'Apps', client: 'EcoLife Plus', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
 ];
 
 const WorkPageHero = () => (
@@ -34,7 +36,7 @@ const WorkPageHero = () => (
           Work that speaks <span className="gradient-text">volumes</span>.
         </h1>
         <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto leading-relaxed">
-          Explore our collection of cinematic brand films, viral short-form content, and high-converting commercials.
+          From cinematic brand films to high-performance websites and scalable mobile applications.
         </p>
       </motion.div>
     </div>
@@ -147,8 +149,19 @@ export default function WorkPage() {
               <div className="aspect-video bg-black flex items-center justify-center border-b border-border-subtle relative">
                  <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/5 to-accent-ice/5"></div>
                  <div className="text-center relative z-10">
-                   <Play size={64} className="mx-auto mb-4 text-white/20" strokeWidth={1} />
-                   <p className="text-text-secondary font-body font-medium">Video Player Placeholder</p>
+                   {['Websites', 'Apps'].includes(selectedItem.category) ? (
+                     <div className="flex flex-col items-center">
+                       <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                         <Play size={32} className="text-accent-ice rotate-90" strokeWidth={1} />
+                       </div>
+                       <p className="text-text-secondary font-body font-medium">Interactive Project Preview</p>
+                     </div>
+                   ) : (
+                     <div className="flex flex-col items-center">
+                       <Play size={64} className="mx-auto mb-4 text-white/20" strokeWidth={1} />
+                       <p className="text-text-secondary font-body font-medium">Video Player Placeholder</p>
+                     </div>
+                   )}
                  </div>
               </div>
               
@@ -160,7 +173,10 @@ export default function WorkPage() {
                   {selectedItem.client}
                 </h2>
                 <p className="text-text-secondary font-body leading-relaxed max-w-3xl">
-                  A comprehensive {selectedItem.category.toLowerCase()} campaign developed for {selectedItem.client}. This project showcases our ability to blend beautiful visuals with striking narratives.
+                  {['Websites', 'Apps'].includes(selectedItem.category) 
+                    ? `A high-performance ${selectedItem.category.toLowerCase()} solution engineered for ${selectedItem.client}. We focused on modern UI/UX principles, lightning-fast performance, and a conversion-centric architecture.`
+                    : `A comprehensive ${selectedItem.category.toLowerCase()} campaign developed for ${selectedItem.client}. This project showcases our ability to blend beautiful visuals with striking narratives.`
+                  }
                 </p>
               </div>
             </motion.div>
