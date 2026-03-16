@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void:        #000000;
+  --bg-primary:     #050505;
+  --bg-secondary:   #0a0a0a;
+  --bg-card:        rgba(255, 255, 255, 0.05);
+  --bg-card-hover:  rgba(255, 255, 255, 0.09);
+
+  --border-subtle:  rgba(255, 255, 255, 0.08);
+  --border-medium:  rgba(255, 255, 255, 0.15);
+  --border-strong:  rgba(255, 255, 255, 0.25);
+
+  --accent-violet:  #7C3AED;
+  --accent-violet-light: #A78BFA;
+  --accent-gold:    #F59E0B;
+  --accent-gold-light: #FCD34D;
+  --accent-ice:     #67E8F9;
+  --accent-rose:    #F43F5E;
+
+  --text-white:     #FFFFFF;
+  --text-primary:   #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted:     #475569;
+
+  --gradient-brand: linear-gradient(135deg, #7C3AED 0%, #F59E0B 55%, #67E8F9 100%);
+  --gradient-violet-ice: linear-gradient(90deg, #7C3AED, #67E8F9);
+  --gradient-gold: linear-gradient(90deg, #F59E0B, #FCD34D);
+  --gradient-card-border: linear-gradient(135deg, rgba(124,58,237,0.5), rgba(103,232,249,0.3));
+
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--text-white);
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-medium);
+}
