@@ -38,36 +38,6 @@ Brixton StudioX is a premium, full-service creative and digital agency based in 
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v18+)
-- npm or yarn
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/aaryan-codes56/brixton-studiox.git
-   cd brixton-studiox
-   ```
-
-2. **Frontend Setup:**
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-
-3. **Backend Setup:**
-   ```bash
-   cd ../backend
-   npm install
-   # Create a .env file with your credentials
-   npm run dev
-   ```
-
----
 
 ## ✉️ Contact Us
 
