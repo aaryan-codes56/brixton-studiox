@@ -88,7 +88,7 @@ const PricingTeaser = () => {
             className={`group relative flex flex-col bg-card border ${plan.highlight ? 'border-accent-gold-light/30 shadow-[0_0_40px_rgba(245,158,11,0.1)]' : 'border-border-subtle'} p-8 rounded-2xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-md ${plan.border} w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] min-w-[280px] max-w-[400px]`}
           >
             {plan.highlight && (
-               <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--gradient-brand)] border border-white/20 text-text-white font-body font-bold text-[10px] tracking-widest uppercase shadow-[0_4px_20px_rgba(124,58,237,0.3)] z-10 whitespace-nowrap">
+               <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--gradient-brand)] border border-white/20 text-text-white font-body font-bold text-[10px] tracking-widest uppercase shadow-[0_4px_20px_rgba(124,58,237,0.3)] z-10 whitespace-nowrap">
                  Most Popular
                </div>
             )}

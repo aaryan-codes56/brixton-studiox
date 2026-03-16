@@ -212,7 +212,7 @@ export default function PricingPage() {
                     }`}
                   >
                     {plan.popular && (
-                      <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--gradient-brand)] border border-white/20 text-text-white font-body font-bold text-[10px] tracking-widest uppercase shadow-[0_4px_20px_rgba(124,58,237,0.3)] z-10 whitespace-nowrap">
+                      <div className="absolute -top-7 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[var(--gradient-brand)] border border-white/20 text-text-white font-body font-bold text-[10px] tracking-widest uppercase shadow-[0_4px_20px_rgba(124,58,237,0.3)] z-10 whitespace-nowrap">
                         Most Popular
                       </div>
                     )}

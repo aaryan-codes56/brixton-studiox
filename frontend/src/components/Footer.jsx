@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
 
 const ThreadsIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
     <path d="M12 12c-2.5 0-4.5-2-4.5-4.5S9.5 3 12 3s4.5 2 4.5 4.5V12a6 6 0 0 1-12 0V9" />
+  </svg>
+);
+
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.294 19.497h2.039L6.486 3.24H4.298L17.607 20.65z" />
   </svg>
 );
 
@@ -86,7 +92,7 @@ const Footer = () => {
                <ThreadsIcon />
              </a>
              <a href="https://x.com/brixtonstudiox" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="X (Twitter)">
-               <Twitter size={18} />
+               <XIcon />
              </a>
              <a href="https://www.linkedin.com/company/brixton-studiox/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="LinkedIn">
                <Linkedin size={18} />
