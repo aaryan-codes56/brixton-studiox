@@ -7,6 +7,7 @@ import Hero from '../components/Hero';
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
 import Pricing from '../components/Pricing';
+import Testimonials from '../components/Testimonials';
 
 const StatsBar = () => (
   <section className="bg-primary border-y border-border-subtle py-12 relative z-20">
@@ -71,6 +72,7 @@ const HomePage = () => {
         <Services />
         <Portfolio />
         <Pricing />
+        <Testimonials />
         <CTABanner />
       </main>
       <Footer />
