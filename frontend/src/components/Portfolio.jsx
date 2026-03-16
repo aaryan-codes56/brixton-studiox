@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { Play, ArrowRight } from 'lucide-react';
+import { Play, ArrowRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const portfolioItems = [
-  { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light' },
-  { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light' },
-  { id: 3, category: 'Commercials', client: 'TechNova', color: 'text-accent-ice' },
-  { id: 4, category: 'Short-Form', client: 'FitHub', color: 'text-accent-rose' }
+  { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video' },
+  { id: 2, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', type: 'web' },
+  { id: 3, category: 'Commercials', client: 'TechNova', color: 'text-accent-gold-light', type: 'video' },
+  { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', type: 'web' }
 ];
 
 const PortfolioTeaser = () => {
@@ -46,10 +46,14 @@ const PortfolioTeaser = () => {
               <span className={`font-display font-bold text-4xl transform -rotate-45 opacity-20 ${item.color}`}>{item.category}</span>
             </div>
             
-            {/* Play Button */}
+            {/* Action Overlay */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300">
-                <Play className="ml-1 w-6 h-6" fill="currentColor" strokeWidth={0} />
+                {item.type === 'web' ? (
+                  <ExternalLink className="w-6 h-6" />
+                ) : (
+                  <Play className="ml-1 w-6 h-6" fill="currentColor" strokeWidth={0} />
+                )}
               </div>
             </div>
 

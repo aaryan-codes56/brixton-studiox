@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Video, Film, Share2, ArrowRight } from 'lucide-react';
+import { Video, Film, Share2, ArrowRight, Monitor } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const services = [
@@ -20,11 +20,19 @@ const services = [
     price: 'Starting at ₹1,499'
   },
   {
-    icon: <Share2 size={32} className="text-accent-ice" />,
-    title: 'Digital Marketing & Growth',
-    desc: 'Data-driven paid ad campaigns, SEO, and social media management to scale your business.',
+    icon: <Monitor size={32} className="text-accent-ice" />,
+    title: 'Web & App Engineering',
+    desc: 'High-performance websites, SaaS platforms, and mobile apps built with cutting-edge tech.',
     border: 'group-hover:border-accent-ice/40',
     shadow: 'group-hover:shadow-[0_0_30px_rgba(103,232,249,0.15)]',
+    price: 'Starting at ₹8,999'
+  },
+  {
+    icon: <Share2 size={32} className="text-accent-rose" />,
+    title: 'Digital Marketing & Growth',
+    desc: 'Data-driven paid ad campaigns, SEO, and social media management to scale your business.',
+    border: 'group-hover:border-accent-rose/40',
+    shadow: 'group-hover:shadow-[0_0_30px_rgba(244,63,94,0.15)]',
     price: 'Starting at ₹10,999/mo'
   }
 ];
@@ -69,7 +77,7 @@ const ServicesTeaser = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
       >
         {services.map((srv, idx) => (
           <motion.div 
