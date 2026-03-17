@@ -3,7 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RefreshCw, Search, LogOut, LayoutDashboard, Users, CheckCircle, XCircle, Edit3, X, Save } from 'lucide-react';
+import { RefreshCw, Search, LogOut, LayoutDashboard, Users, CheckCircle, XCircle, Edit3, X, Save, Loader2 } from 'lucide-react';
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();

@@ -127,6 +127,34 @@ const plans = {
   ]
 };
 
+const addons = {
+  'Short-Form (Reels)': [
+    { name: 'Extra Revision', price: '₹499/ea' },
+    { name: 'Custom Thumbnail', price: '₹299' },
+    { name: 'Rush Delivery (24hr)', price: '+30%' }
+  ],
+  'Brand Films': [
+    { name: 'Drone Capabilities (4K)', price: '₹4,999/shoot' },
+    { name: 'Extra Revision', price: '₹999/ea' },
+    { name: 'Raw Footage Delivery', price: '₹2,499' }
+  ],
+  'Social Media': [
+    { name: 'Single Post Design', price: '₹549' },
+    { name: 'Carousel (3-5 slides)', price: '₹849 - ₹1,049' },
+    { name: 'Extra Reel Edit', price: '₹1,499' }
+  ],
+  'Web Dev': [
+    { name: 'Additional Page', price: '₹2,499' },
+    { name: 'Blog Setup', price: '₹4,999' },
+    { name: 'Priority Support (1 mo)', price: '₹2,999' }
+  ],
+  'App Dev': [
+    { name: 'Tablet Optimization', price: '₹15,000' },
+    { name: 'Admin Dashboard', price: 'Starting ₹20,000' },
+    { name: 'Priority Support (1 mo)', price: '₹9,999' }
+  ]
+};
+
 const PricingPageHero = () => (
   <section className="relative pt-40 pb-20 px-6 flex flex-col items-center justify-center text-center overflow-hidden border-b border-border-subtle bg-base">
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80%] w-[600px] h-[600px] bg-accent-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
@@ -262,22 +290,12 @@ export default function PricingPage() {
              <h3 className="text-2xl md:text-3xl font-display font-bold text-text-white mb-8 text-center">Add-ons & Extras</h3>
              
              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
-                <div className="flex justify-between items-center border-b border-border-subtle pb-4">
-                  <span className="font-body text-text-secondary text-[15px]">Drone Capabilities (4K)</span>
-                  <span className="font-body font-semibold text-text-white">₹4,999/shoot</span>
-                </div>
-                <div className="flex justify-between items-center border-b border-border-subtle pb-4">
-                  <span className="font-body text-text-secondary text-[15px]">Extra Revision</span>
-                  <span className="font-body font-semibold text-text-white">₹499/ea</span>
-                </div>
-                <div className="flex justify-between items-center border-b border-border-subtle pb-4">
-                  <span className="font-body text-text-secondary text-[15px]">Single Post Design</span>
-                  <span className="font-body font-semibold text-text-white">₹549</span>
-                </div>
-                <div className="flex justify-between items-center border-b border-border-subtle pb-4">
-                  <span className="font-body text-text-secondary text-[15px]">Carousel (3-5 slides)</span>
-                  <span className="font-body font-semibold text-text-white">₹849 - ₹1,049</span>
-                </div>
+                {addons[activeTab]?.map((addon, idx) => (
+                  <div key={idx} className="flex justify-between items-center border-b border-border-subtle pb-4">
+                    <span className="font-body text-text-secondary text-[15px]">{addon.name}</span>
+                    <span className="font-body font-semibold text-text-white">{addon.price}</span>
+                  </div>
+                ))}
              </div>
              <p className="text-center text-text-muted font-body text-sm mt-8">
                * Custom rates available for bulk orders. Contact us directly.

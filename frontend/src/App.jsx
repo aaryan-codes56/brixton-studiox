@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
 import { AuthProvider, useAuth } from './hooks/useAuth';
@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 // We will create/update these shortly
 import Footer from './components/Footer';
 import WhatsappBtn from './components/WhatsappBtn';
+import CustomCursor from './components/CustomCursor';
 
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
@@ -25,11 +26,35 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/work" element={<WorkPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/experience" element={<ExperiencePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <ScrollToTop />
+        <CustomCursor />
         <Toaster position="top-right" toastOptions={{
           style: {
             background: 'var(--bg-card)',
@@ -40,22 +65,7 @@ function App() {
             fontSize: '14px',
           }
         }}/>
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/work" element={<WorkPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/experience" element={<ExperiencePage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } />
-          </Routes>
-        </AnimatePresence>
+        <AnimatedRoutes />
       </BrowserRouter>
     </AuthProvider>
   );

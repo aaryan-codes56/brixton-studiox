@@ -26,26 +26,19 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out border-b border-transparent 
-        ${scrolled ? 'bg-[rgba(7,7,26,0.85)] backdrop-blur-[20px] border-border-subtle h-[72px] md:h-[72px]' : 'bg-transparent h-[72px] md:h-[72px]'} 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[0.16,1,0.3,1] border-b
+        ${scrolled 
+          ? 'bg-void/80 backdrop-blur-2xl border-white/5 h-[80px] shadow-[0_4px_30px_rgba(0,0,0,0.3)]' 
+          : 'bg-transparent border-transparent h-[100px]'} 
         flex items-center`}
     >
       <div className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo Group */}
-        <Link to="/" className="flex items-center gap-3 cursor-pointer group hover:brightness-110 transition-all">
-          {/* Hexagon icon 36x36 */}
-          <div className="relative w-9 h-9 flex items-center justify-center">
-            {/* SVG Logo definition exactly as requested */}
-            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full transform group-hover:rotate-30 transition-transform duration-700 ease-out">
-              <polygon points="50,5 93,27 93,72 50,95 7,72 7,27" fill="transparent" stroke="url(#hexBrand)" strokeWidth="1.5" />
-              <circle cx="50" cy="50" r="40" stroke="#F59E0B" strokeOpacity="0.6" strokeWidth="1" fill="transparent" />
-              {/* Dots at vertices */}
-              <circle cx="50" cy="5" r="2" fill="#7C3AED" />
-              <circle cx="93" cy="27" r="2" fill="#F59E0B" />
-              <circle cx="93" cy="72" r="2" fill="#67E8F9" />
-              <circle cx="50" cy="95" r="2" fill="#7C3AED" />
-              <circle cx="7" cy="72" r="2" fill="#F59E0B" />
-              <circle cx="7" cy="27" r="2" fill="#67E8F9" />
+        <Link to="/" className="flex items-center gap-3 cursor-pointer group transition-all">
+          <div className="relative w-10 h-10 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full transform group-hover:rotate-[120deg] transition-transform duration-1000 ease-in-out">
+              <polygon points="50,5 93,27 93,72 50,95 7,72 7,27" fill="transparent" stroke="url(#hexBrand)" strokeWidth="2" />
+              <circle cx="50" cy="50" r="38" stroke="white" strokeOpacity="0.1" strokeWidth="1" fill="transparent" />
               <defs>
                 <linearGradient id="hexBrand" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#7C3AED" />
@@ -53,35 +46,37 @@ const Navbar = () => {
                 </linearGradient>
               </defs>
             </svg>
-            <span className="font-display font-bold text-[16px] relative z-10 gradient-text mt-0.5">B</span>
+            <span className="font-display font-bold text-[18px] relative z-10 gradient-text">B</span>
           </div>
           
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-body font-bold text-[18px] text-text-white">BRIXTON</span>
-            <span className="font-body font-light text-[18px] text-accent-violet-light tracking-[0.3em]">STUDIOX</span>
+          <div className="flex flex-col leading-none">
+            <span className="font-body font-black text-[20px] text-text-white tracking-tighter">BRIXTON</span>
+            <span className="font-body font-medium text-[10px] text-accent-ice tracking-[0.4em] mt-0.5 opacity-80">STUDIOX</span>
           </div>
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-9">
+        <div className="hidden md:flex items-center gap-10">
           {links.map((link) => {
             const isActive = location.pathname === link.to;
             return (
               <Link 
                 key={link.name} 
                 to={link.to} 
-                className={`text-[14px] font-medium font-body relative transition-colors duration-300 
-                  ${isActive ? 'text-accent-violet-light' : 'text-text-secondary hover:text-text-white'}`}
+                className={`text-[13px] font-bold font-body relative transition-all duration-300 tracking-widest uppercase
+                  ${isActive ? 'text-text-white' : 'text-text-muted hover:text-text-white'}`}
               >
                 {link.name}
                 {isActive && (
-                  <span className="absolute -bottom-[8px] left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-accent-gold" />
+                  <motion.span 
+                    layoutId="navUnderline"
+                    className="absolute -bottom-2 left-0 w-full h-[2px] bg-accent-violet-light rounded-full" 
+                  />
                 )}
               </Link>
             );
           })}
-          
-        </div>
+        </div>  
 
         {/* Mobile Toggle */}
         <button className="md:hidden text-text-white p-2 z-50 focus:outline-none" onClick={() => setIsOpen(!isOpen)}>

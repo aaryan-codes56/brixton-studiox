@@ -31,14 +31,31 @@ const PortfolioTeaser = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15 }
+          }
+        }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+      >
         {portfolioItems.map((item, idx) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.1 }}
+            variants={{
+              hidden: { opacity: 0, scale: 0.9, y: 20 },
+              visible: { 
+                opacity: 1, 
+                scale: 1, 
+                y: 0,
+                transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+              }
+            }}
             className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-secondary border border-border-medium cursor-pointer"
           >
             {/* Dark placeholder */}
@@ -64,7 +81,7 @@ const PortfolioTeaser = () => {
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
