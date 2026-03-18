@@ -1,8 +1,22 @@
 import { motion } from 'framer-motion';
-import { Camera, Focus, Activity, Film } from 'lucide-react';
+import { Camera, Focus, Activity, Film, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsappBtn from '../components/WhatsappBtn';
+import PageWrapper from '../components/PageWrapper';
+import AnimatedHeading from '../components/AnimatedHeading';
+
+const SectionWrapper = ({ children, className = "" }) => (
+  <motion.section
+    initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+    className={className}
+  >
+    {children}
+  </motion.section>
+);
 
 const stats = [
   { value: '50+', label: 'Brands Elevated', color: 'text-accent-violet-light' },
@@ -58,25 +72,23 @@ const equipment = [
   'DJI Mavic 3 Cine Drones'
 ];
 
-import { Search } from 'lucide-react';
-
 const ExperiencePageHero = () => (
-  <section className="relative pt-40 pb-20 px-6 flex flex-col items-center justify-center text-center overflow-hidden border-b border-border-subtle bg-base">
-    <div className="absolute top-1/2 left-1/2 -translate-x-[60%] -translate-y-1/2 w-[500px] h-[500px] bg-accent-violet/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <section className="relative pt-40 pb-20 px-6 flex flex-col items-center justify-center text-center overflow-hidden border-b border-white/5">
     <div className="relative z-10 max-w-4xl mx-auto">
       <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <span className="inline-block py-1 px-3 rounded-full bg-[rgba(255,255,255,0.05)] border border-border-subtle text-accent-violet-light font-body text-xs tracking-widest uppercase mb-6">
+        <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-accent-violet-light font-body text-[10px] tracking-widest uppercase mb-6">
           The Brixton Standard
         </span>
-        <h1 className="text-5xl md:text-7xl font-display font-bold text-text-white mb-6 leading-tight">
-          Engineered for <span className="gradient-text italic">impact</span>.
-        </h1>
+        <AnimatedHeading 
+          text="Engineered for impact." 
+          className="text-5xl md:text-7xl font-display font-bold text-text-white mb-6 leading-tight justify-center"
+        />
         <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto leading-relaxed">
-          We combine cinematic artistry with data-driven strategy to build digital assets that perform.
+          We combine cinematic artistry with data-driven strategy to build digital assets that perform at the highest level.
         </p>
       </motion.div>
     </div>
@@ -85,87 +97,94 @@ const ExperiencePageHero = () => (
 
 export default function ExperiencePage() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="min-h-screen bg-void relative selection:bg-accent-violet/30"
-    >
+    <PageWrapper>
       <Navbar />
       
       <main>
         <ExperiencePageHero />
 
         {/* Stats Section */}
-        <section className="py-24 max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-border-subtle/50 text-center">
+        <SectionWrapper className="py-24 max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {stats.map((stat, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="flex flex-col items-center justify-center"
+                transition={{ duration: 0.8, delay: idx * 0.1 }}
+                className="flex flex-col items-center justify-center p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all duration-500 hover:-translate-y-2"
               >
-                <span className={`font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-2 ${stat.color}`}>{stat.value}</span>
-                <span className="font-body text-xs md:text-sm text-text-secondary tracking-widest uppercase">{stat.label}</span>
+                <span className={`font-display font-bold text-5xl md:text-6xl mb-4 tracking-tighter ${stat.color}`}>{stat.value}</span>
+                <span className="font-body text-[10px] font-black text-text-secondary tracking-[0.3em] uppercase">{stat.label}</span>
               </motion.div>
             ))}
           </div>
-        </section>
+        </SectionWrapper>
 
         {/* Process Timeline */}
-        <section className="py-24 max-w-4xl mx-auto px-6 relative z-10 border-t border-border-subtle">
-           <div className="text-center mb-16">
-             <h2 className="text-4xl md:text-5xl font-display font-bold text-text-white mb-4">The Production Process</h2>
-             <p className="text-text-secondary font-body">From concept to final export, we leave nothing to chance.</p>
+        <SectionWrapper className="py-24 max-w-5xl mx-auto px-6 relative z-10 border-t border-white/5">
+           <div className="text-center mb-20">
+             <h2 className="text-4xl md:text-6xl font-display font-bold text-text-white mb-6">The <span className="gradient-text italic opacity-90">Production</span> Process</h2>
+             <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto leading-relaxed">From initial conceptualization to global distribution, we leave zero room for error.</p>
            </div>
 
-           <div className="relative border-l-2 border-border-subtle ml-4 md:ml-10 space-y-12">
+           <div className="relative border-l-2 border-white/5 ml-6 md:ml-12 space-y-16">
              {timelineSteps.map((step, idx) => (
                <motion.div 
                  key={idx}
                  initial={{ opacity: 0, x: -30 }}
                  whileInView={{ opacity: 1, x: 0 }}
                  viewport={{ once: true, margin: "-100px" }}
-                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                 className="relative pl-10 md:pl-16"
+                 transition={{ duration: 0.8, delay: idx * 0.1 }}
+                 className="relative pl-12 md:pl-20 group"
                >
                  {/* Node */}
-                 <div className={`absolute -left-[21px] top-1 w-10 h-10 rounded-full border-4 border-void ${step.color} flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.1)]`}>
-                   <div className="scale-50">{step.icon}</div>
+                 <div className={`absolute -left-[27px] top-1 w-12 h-12 rounded-full border-4 border-void ${step.color} flex items-center justify-center group-hover:scale-125 transition-transform duration-500 shadow-2xl z-20`}>
+                   <div className="scale-75">{step.icon}</div>
                  </div>
                  
-                 <div className="bg-card border border-border-subtle p-6 rounded-2xl hover:border-border-medium transition-colors">
-                   <span className="font-body text-[11px] font-bold tracking-widest uppercase text-text-muted mb-2 block">{step.phase}</span>
-                   <h3 className="text-2xl font-display font-bold text-text-white mb-3">{step.title}</h3>
-                   <p className="font-body text-[15px] text-text-secondary leading-relaxed">{step.desc}</p>
+                 <div className="bg-[#0d0d0d]/40 border border-white/5 p-8 md:p-10 rounded-3xl hover:border-white/20 transition-all duration-700 backdrop-blur-md group-hover:-translate-y-2">
+                   <div className="flex items-center gap-4 mb-4">
+                     <span className="font-body text-[10px] font-black tracking-[0.3em] uppercase text-accent-ice opacity-60">{step.phase}</span>
+                     <div className="h-[1px] w-8 bg-white/10 group-hover:w-16 transition-all duration-700"></div>
+                   </div>
+                   <h3 className="text-2xl md:text-3xl font-display font-bold text-text-white mb-4 tracking-tight">{step.title}</h3>
+                   <p className="font-body text-[16px] text-text-secondary leading-relaxed group-hover:text-text-white transition-colors">{step.desc}</p>
                  </div>
+                 
+                 {/* Decorative line extension on hover */}
+                 <div className="absolute top-7 -left-[40px] w-10 h-[2px] bg-gradient-to-r from-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                </motion.div>
              ))}
            </div>
-        </section>
+        </SectionWrapper>
 
         {/* Equipment Section */}
-        <section className="py-24 bg-card border-t border-b border-border-subtle relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-ice/5 rounded-full blur-[100px] pointer-events-none"></div>
-          <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-text-white mb-10">Cinema-Grade Arsenal</h2>
-            <div className="flex flex-wrap justify-center gap-4">
+        <SectionWrapper className="py-32 bg-void border-t border-b border-white/5 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-ice/5 blur-[150px] pointer-events-none"></div>
+          <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-text-white mb-16 tracking-tight">Cinema-Grade arsenal.</h2>
+            <div className="flex flex-wrap justify-center gap-6">
               {equipment.map((item, idx) => (
-                <div key={idx} className="px-6 py-3 rounded-full bg-[rgba(255,255,255,0.03)] border border-border-subtle text-text-secondary font-body text-[14px] hover:text-text-white hover:border-border-medium transition-colors">
+                <motion.div 
+                  key={idx} 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  whileHover={{ y: -5, scale: 1.05 }}
+                  transition={{ delay: idx * 0.05 }}
+                  className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-text-secondary font-body font-bold text-sm tracking-widest uppercase hover:text-text-white hover:border-accent-ice hover:bg-accent-ice/10 transition-all duration-300 cursor-default shadow-xl"
+                >
                   {item}
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </SectionWrapper>
       </main>
 
       <Footer />
       <WhatsappBtn />
-    </motion.div>
+    </PageWrapper>
   );
 }

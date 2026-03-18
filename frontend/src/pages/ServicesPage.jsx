@@ -4,8 +4,23 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsappBtn from '../components/WhatsappBtn';
 import { Link } from 'react-router-dom';
+import PageWrapper from '../components/PageWrapper';
+import AnimatedHeading from '../components/AnimatedHeading';
+
+const SectionWrapper = ({ children, className = "" }) => (
+  <motion.section
+    initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+    className={className}
+  >
+    {children}
+  </motion.section>
+);
 
 const detailedServices = [
+  // ... (content remains same but I'll update the render logic below)
   {
     icon: <Film size={32} className="text-accent-gold-light" />,
     title: 'Brand Films & Commercials',
@@ -62,34 +77,21 @@ const detailedServices = [
   }
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
 const ServicesPageHero = () => (
-  <section className="relative pt-40 pb-20 px-6 flex flex-col items-center justify-center text-center overflow-hidden border-b border-border-subtle bg-base">
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-violet/10 rounded-full blur-[150px] pointer-events-none"></div>
+  <section className="relative pt-40 pb-20 px-6 flex flex-col items-center justify-center text-center overflow-hidden border-b border-white/5">
     <div className="relative z-10 max-w-4xl mx-auto">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <span className="inline-block py-1 px-3 rounded-full bg-[rgba(255,255,255,0.05)] border border-border-subtle text-accent-ice font-body text-xs tracking-widest uppercase mb-6">
+        <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-accent-ice font-body text-[10px] tracking-widest uppercase mb-6">
           Our Capabilities
         </span>
-        <h1 className="text-5xl md:text-7xl font-display font-bold text-text-white mb-6 leading-tight">
-          Everything you need to <span className="gradient-text">scale</span>.
-        </h1>
+        <AnimatedHeading 
+          text="Everything you need to scale." 
+          className="text-5xl md:text-7xl font-display font-bold text-text-white mb-6 leading-tight justify-center"
+        />
         <p className="text-lg text-text-secondary font-body max-w-2xl mx-auto leading-relaxed">
           From cinematic video production to data-driven growth strategies, we provide an end-to-end framework for digital dominance.
         </p>
@@ -100,53 +102,44 @@ const ServicesPageHero = () => (
 
 export default function ServicesPage() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="min-h-screen bg-void relative selection:bg-accent-violet/30"
-    >
+    <PageWrapper>
       <Navbar />
       
       <main>
         <ServicesPageHero />
         
-        <section className="py-24 max-w-7xl mx-auto px-6 relative z-10">
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+        <SectionWrapper className="py-24 max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {detailedServices.map((srv, idx) => (
               <motion.div 
                 key={idx}
-                variants={itemVariants}
-                className={`group flex flex-col bg-card border border-border-subtle p-8 rounded-2xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm ${srv.border} ${srv.shadow}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: idx * 0.1 }}
+                className={`group flex flex-col bg-[#0d0d0d]/40 border border-white/5 p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-md ${srv.border} ${srv.shadow}`}
               >
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-border-subtle group-hover:bg-[rgba(255,255,255,0.06)] transition-colors">
+                <div className="flex justify-between items-start mb-8">
+                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 group-hover:bg-white/[0.06] transition-colors">
                     {srv.icon}
                   </div>
                   <div className="text-right">
-                    <span className="font-mono text-xs text-text-secondary uppercase tracking-widest block">Starting</span>
-                    <span className="font-body font-semibold text-text-white">{srv.price}</span>
+                    <span className="font-mono text-[10px] text-text-secondary uppercase tracking-widest block mb-1">Starting</span>
+                    <span className="font-body font-bold text-text-white text-lg">{srv.price}</span>
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-display font-bold text-text-white mb-3">{srv.title}</h3>
-                <p className="font-body text-[15px] text-text-secondary leading-relaxed mb-8">
+                <h3 className="text-2xl font-display font-bold text-text-white mb-4">{srv.title}</h3>
+                <p className="font-body text-[15px] text-text-secondary leading-relaxed mb-10">
                   {srv.desc}
                 </p>
                 
-                <div className="h-[1px] w-full bg-border-subtle mb-6"></div>
+                <div className="h-[1px] w-full bg-white/5 mb-8"></div>
                 
-                <ul className="flex-1 space-y-3 mb-8">
+                <ul className="flex-1 space-y-4 mb-10">
                   {srv.features.map((feat, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <Check size={16} className="text-text-muted mt-0.5 shrink-0 group-hover:text-accent-ice transition-colors" />
+                    <li key={i} className="flex items-start gap-4">
+                      <Check size={16} className="text-accent-ice mt-0.5 shrink-0" />
                       <span className="font-body text-[13px] text-text-secondary leading-tight">{feat}</span>
                     </li>
                   ))}
@@ -154,31 +147,30 @@ export default function ServicesPage() {
 
                 <Link 
                   to="/pricing"
-                  className="w-full py-3 rounded-lg font-body text-sm font-semibold flex items-center justify-center gap-2 bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.08)] border border-border-medium transition-all text-text-white mt-auto"
+                  className="w-full py-4 rounded-xl font-body text-sm font-bold flex items-center justify-center gap-2 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-all text-text-white mt-auto"
                 >
                   View Packages <ArrowRight size={14} />
                 </Link>
               </motion.div>
             ))}
-          </motion.div>
-        </section>
+          </div>
+        </SectionWrapper>
         
-        <section className="py-24 max-w-4xl mx-auto px-6 text-center border-t border-border-subtle relative">
-           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
-           <h2 className="text-4xl md:text-5xl font-display font-bold text-text-white mb-6">Need a custom solution?</h2>
-           <p className="text-lg text-text-secondary font-body mb-10">We build tailored packages for agencies and enterprises.</p>
+        <SectionWrapper className="py-24 max-w-5xl mx-auto px-6 text-center border-t border-white/5 relative">
+           <h2 className="text-4xl md:text-6xl font-display font-bold text-text-white mb-8">Need a <span className="gradient-text italic">custom</span> solution?</h2>
+           <p className="text-xl text-text-secondary font-body mb-12 max-w-2xl mx-auto">We build tailored packages for visionary agencies and global enterprises looking for unfair advantages.</p>
            <Link 
             to="/contact" 
-            className="inline-block px-10 py-4 text-[15px] rounded-full bg-text-white text-void font-body font-semibold tracking-[0.03em] hover:bg-gray-200 transition-colors"
+            className="inline-block px-12 py-5 text-[15px] rounded-full bg-text-white text-void font-body font-bold tracking-[0.05em] hover:bg-accent-ice transition-all hover:scale-105 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
            >
              Book a Strategy Call
            </Link>
-        </section>
+        </SectionWrapper>
 
       </main>
 
       <Footer />
       <WhatsappBtn />
-    </motion.div>
+    </PageWrapper>
   );
 }

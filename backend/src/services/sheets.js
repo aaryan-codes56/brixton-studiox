@@ -13,7 +13,7 @@ const sheets = google.sheets({ version: 'v4', auth });
 const SHEET_ID = process.env.GOOGLE_SHEET_ID;
 
 // Header row format
-const HEADERS = ['ID', 'Name', 'Email', 'Phone', 'Service', 'Message', 'Status', 'Comment', 'CreatedAt', 'UpdatedAt'];
+const HEADERS = ['ID', 'Name', 'Email', 'Phone', 'Service', 'Message', 'Status', 'Comment', 'CreatedAt', 'UpdatedAt', 'AssignedTo'];
 
 /**
  * Ensures the header row exists on the sheet to avoid blank headers or offset data.
@@ -24,13 +24,13 @@ async function initializeSheet() {
   try {
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: SHEET_ID,
-      range: 'Sheet1!A1:J1',
+      range: 'Sheet1!A1:K1',
     });
     
     if (!res.data.values || res.data.values.length === 0) {
       await sheets.spreadsheets.values.update({
         spreadsheetId: SHEET_ID,
-        range: 'Sheet1!A1:J1',
+        range: 'Sheet1!A1:K1',
         valueInputOption: 'USER_ENTERED',
         resource: { values: [HEADERS] },
       });
@@ -55,12 +55,13 @@ async function appendLead(lead) {
     lead.status || 'open',
     lead.comment || '',
     lead.createdAt,
-    lead.updatedAt
+    lead.updatedAt,
+    lead.assignedTo || ''
   ];
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: SHEET_ID,
-    range: 'Sheet1!A:J',
+    range: 'Sheet1!A:K',
     valueInputOption: 'USER_ENTERED',
     insertDataOption: 'INSERT_ROWS',
     resource: { values: [row] },
@@ -73,7 +74,7 @@ async function appendLead(lead) {
 async function getAllLeads() {
   const getRes = await sheets.spreadsheets.values.get({
     spreadsheetId: SHEET_ID,
-    range: 'Sheet1!A2:J',
+    range: 'Sheet1!A2:K',
   });
 
   const rows = getRes.data.values || [];
@@ -87,18 +88,19 @@ async function getAllLeads() {
     status: row[6] || '',
     comment: row[7] || '',
     createdAt: row[8] || '',
-    updatedAt: row[9] || ''
+    updatedAt: row[9] || '',
+    assignedTo: row[10] || ''
   })).reverse(); // newest first
 }
 
 /**
- * Updates a lead by ID (updates Status, Comment, UpdatedAt)
+ * Updates a lead by ID (updates Status, Comment, UpdatedAt, AssignedTo)
  */
 async function updateLead(id, updates) {
   // First, find the row index where this ID resides
   const getRes = await sheets.spreadsheets.values.get({
     spreadsheetId: SHEET_ID,
-    range: 'Sheet1!A:J',
+    range: 'Sheet1!A:K',
   });
 
   const rows = getRes.data.values;
@@ -114,20 +116,21 @@ async function updateLead(id, updates) {
 
   const updatedStatus = updates.status !== undefined ? updates.status : existingRow[6];
   const updatedComment = updates.comment !== undefined ? updates.comment : existingRow[7];
+  const updatedAssignedTo = updates.assignedTo !== undefined ? updates.assignedTo : existingRow[10];
   const updatedDate = new Date().toISOString();
 
-  // We are updating columns G, H, J (Status, Comment, UpdatedAt) -> indices 6, 7, 9
-  // It's safer to just overwrite the entire row but replace the specific fields.
+  // We are updating columns G, H, J, K (Status, Comment, UpdatedAt, AssignedTo) -> indices 6, 7, 9, 10
   const newRow = [...existingRow];
-  // ensure array has 10 elements
-  while(newRow.length < 10) newRow.push('');
+  // ensure array has 11 elements
+  while(newRow.length < 11) newRow.push('');
   newRow[6] = updatedStatus;
   newRow[7] = updatedComment;
   newRow[9] = updatedDate;
+  newRow[10] = updatedAssignedTo;
 
   await sheets.spreadsheets.values.update({
     spreadsheetId: SHEET_ID,
-    range: `Sheet1!A${sheetRow}:J${sheetRow}`,
+    range: `Sheet1!A${sheetRow}:K${sheetRow}`,
     valueInputOption: 'USER_ENTERED',
     resource: { values: [newRow] },
   });
@@ -141,6 +144,7 @@ async function updateLead(id, updates) {
 // }
 
 module.exports = {
+  initializeSheet,
   appendLead,
   getAllLeads,
   updateLead

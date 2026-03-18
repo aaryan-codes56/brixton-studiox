@@ -1,16 +1,9 @@
-const { getAllLeads, updateLead } = require('../services/sheets');
+const { updateLead: updateSheetLead } = require('../services/sheets');
+const leadsService = require('../services/leadsService');
 
 exports.getLeads = async (req, res) => {
   try {
-    if (!process.env.GOOGLE_PRIVATE_KEY) {
-      // Mock data for testing without sheets configured
-      return res.json({ leads: [
-        { id: '1', name: 'John Doe', email: 'john@example.com', phone: '1234567890', service: 'Reels', message: 'Lets shoot', status: 'open', comment: '', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
-        { id: '2', name: 'Jane Smith', email: 'jane@example.com', phone: '0987654321', service: 'SEO', message: '', status: 'closed', comment: 'Completed', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
-      ]});
-    }
-
-    const leads = await getAllLeads();
+    const leads = await leadsService.getLeads();
     res.json({ success: true, leads });
   } catch (error) {
     console.error('Error fetching leads:', error);
@@ -21,13 +14,20 @@ exports.getLeads = async (req, res) => {
 exports.patchLead = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, comment } = req.body;
+    const { status, comment, assignedTo } = req.body;
 
-    if (!process.env.GOOGLE_PRIVATE_KEY) {
-      return res.json({ success: true, message: 'Mock update success' });
+    // Update locally (Primary)
+    const updated = await leadsService.updateLead(id, { status, comment, assignedTo });
+
+    // Sync to Google Sheets (Secondary)
+    if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY && process.env.GOOGLE_PRIVATE_KEY.includes('BEGIN PRIVATE KEY')) {
+      try {
+        await updateSheetLead(id, { status, comment, assignedTo });
+      } catch (sheetError) {
+        console.error('Failed to update Google Sheet lead:', sheetError.message);
+      }
     }
 
-    const updated = await updateLead(id, { status, comment });
     res.json({ success: true, message: 'Lead updated', lead: updated });
   } catch (error) {
     console.error('Error updating lead:', error);

@@ -6,6 +6,10 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const { initializeSheet } = require('./services/sheets');
+
+// Initialize Google Sheets
+initializeSheet();
 
 // Middleware
 app.use(helmet());

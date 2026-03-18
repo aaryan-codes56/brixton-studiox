@@ -1,4 +1,5 @@
 const { appendLead } = require('../services/sheets');
+const leadsService = require('../services/leadsService');
 const crypto = require('crypto');
 const { validationResult } = require('express-validator');
 
@@ -22,14 +23,21 @@ exports.createLead = async (req, res) => {
       message: message || '',
       status: 'open',
       comment: '',
+      assignedTo: '',
       createdAt: timestamp,
       updatedAt: timestamp
     };
 
-    if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY) {
-        await appendLead(lead);
-    } else {
-        console.log('Lead received but Google Sheets not configured:', lead);
+    // Store locally (Primary)
+    await leadsService.saveLead(lead);
+
+    // Sync to Google Sheets (Secondary)
+    if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY && process.env.GOOGLE_PRIVATE_KEY.includes('BEGIN PRIVATE KEY')) {
+        try {
+            await appendLead(lead);
+        } catch (sheetError) {
+            console.error('Failed to sync to Google Sheets:', sheetError.message);
+        }
     }
 
     res.status(201).json({ success: true, message: 'Your call request has been received!' });

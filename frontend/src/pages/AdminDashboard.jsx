@@ -14,6 +14,7 @@ const AdminDashboard = () => {
   const [editingId, setEditingId] = useState(null);
   const [editComment, setEditComment] = useState('');
   const [editStatus, setEditStatus] = useState('open');
+  const [editAssignedTo, setEditAssignedTo] = useState('');
 
   const fetchLeads = async (showToast = false) => {
     setLoading(true);
@@ -29,6 +30,8 @@ const AdminDashboard = () => {
       setLoading(false);
     }
   };
+
+  const [editPrice, setEditPrice] = useState('₹'); // placeholder if needed
 
   useEffect(() => {
     fetchLeads();
@@ -51,13 +54,14 @@ const AdminDashboard = () => {
     setEditingId(lead.id);
     setEditComment(lead.comment || '');
     setEditStatus(lead.status);
+    setEditAssignedTo(lead.assignedTo || '');
   };
 
   const saveEdit = async (id) => {
     try {
-      await api.patch(`/admin/leads/${id}`, { status: editStatus, comment: editComment });
+      await api.patch(`/admin/leads/${id}`, { status: editStatus, comment: editComment, assignedTo: editAssignedTo });
       toast.success('Lead updated successfully');
-      setLeads(prev => prev.map(lead => lead.id === id ? { ...lead, status: editStatus, comment: editComment, updatedAt: new Date().toISOString() } : lead));
+      setLeads(prev => prev.map(lead => lead.id === id ? { ...lead, status: editStatus, comment: editComment, assignedTo: editAssignedTo, updatedAt: new Date().toISOString() } : lead));
     } catch (_err) {
       toast.error('Failed to update lead');
     } finally {
@@ -66,7 +70,7 @@ const AdminDashboard = () => {
   };
 
   const filteredLeads = leads.filter(lead => {
-    const matchesSearch = [lead.name, lead.email, lead.phone, lead.service].some(val => 
+    const matchesSearch = [lead.name, lead.email, lead.phone, lead.service, lead.assignedTo].some(val => 
       val?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const matchesFilter = filter === 'All' ? true : lead.status === filter.toLowerCase();
@@ -181,6 +185,7 @@ const AdminDashboard = () => {
                   <tr className="border-b border-border-subtle text-text-secondary text-xs uppercase tracking-wider">
                     <th className="pb-3 px-4 font-semibold">Name & Contact</th>
                     <th className="pb-3 px-4 font-semibold">Service</th>
+                    <th className="pb-3 px-4 font-semibold">Assigned To</th>
                     <th className="pb-3 px-4 font-semibold max-w-xs">Message / Comment</th>
                     <th className="pb-3 px-4 font-semibold w-32">Status</th>
                     <th className="pb-3 px-4 font-semibold w-24">Actions</th>
@@ -190,7 +195,7 @@ const AdminDashboard = () => {
                   <AnimatePresence>
                     {filteredLeads.length === 0 && !loading && (
                       <tr>
-                        <td colSpan="5" className="py-12 text-center text-text-muted">No leads found.</td>
+                        <td colSpan="6" className="py-12 text-center text-text-muted">No leads found.</td>
                       </tr>
                     )}
                     {filteredLeads.map((lead) => (
@@ -211,6 +216,30 @@ const AdminDashboard = () => {
                           <span className="inline-block px-3 py-1 bg-[rgba(255,255,255,0.03)] border border-border-subtle rounded-lg text-xs font-mono text-accent-ice break-words shadow-sm">
                             {lead.service}
                           </span>
+                        </td>
+                        <td className="py-4 px-4 align-top">
+                          {editingId === lead.id ? (
+                            <input 
+                              type="text" 
+                              value={editAssignedTo}
+                              onChange={(e) => setEditAssignedTo(e.target.value)}
+                              className="w-full bg-void border border-accent-violet/50 rounded p-2 text-sm text-text-white outline-none"
+                              placeholder="Assigned to..."
+                            />
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              {lead.assignedTo ? (
+                                <>
+                                  <div className="w-6 h-6 rounded-full bg-accent-violet/20 flex items-center justify-center text-[10px] text-accent-violet-light font-bold border border-accent-violet/30">
+                                    {lead.assignedTo.charAt(0).toUpperCase()}
+                                  </div>
+                                  <span className="text-sm text-text-white font-medium">{lead.assignedTo}</span>
+                                </>
+                              ) : (
+                                <span className="text-xs text-text-muted italic">Unassigned</span>
+                              )}
+                            </div>
+                          )}
                         </td>
                         <td className="py-4 px-4 align-top max-w-xs">
                           {editingId === lead.id ? (
