@@ -25,5 +25,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "nodemonConfig": {
+    "ignore": ["data/*", "src/data/*", "backend/data/*"]
   }
 }
