@@ -8,6 +8,15 @@ import { Link } from 'react-router-dom';
 import PageWrapper from '../components/PageWrapper';
 import AnimatedHeading from '../components/AnimatedHeading';
 
+// Maps pricing tab names to contact form service values
+const tabToService = {
+  'Short-Form (Reels)': 'Reels',
+  'Brand Films': 'Long Form',
+  'Social Media': 'Social Media',
+  'Web Dev': 'Web/App',
+  'App Dev': 'Web/App',
+};
+
 const tabs = ['Short-Form (Reels)', 'Brand Films', 'Social Media', 'Web Dev', 'App Dev'];
 
 const plans = {
@@ -283,6 +292,7 @@ export default function PricingPage() {
                     
                     <Link 
                       to="/contact"
+                      state={{ service: tabToService[activeTab], planName: plan.name, tab: activeTab }}
                       className={`w-full py-4 rounded-xl font-body font-black text-[12px] tracking-[0.2em] uppercase flex items-center justify-center transition-all ${
                         plan.popular 
                           ? 'bg-accent-gold-light text-void shadow-2xl hover:scale-[1.02]' 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Phone, Loader2, MapPin, Mail, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { MessageCircle, Phone, Loader2, MapPin, Mail, Facebook, Instagram, Linkedin, Sparkles, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
 import Navbar from '../components/Navbar';
@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import WhatsappBtn from '../components/WhatsappBtn';
 import PageWrapper from '../components/PageWrapper';
 import AnimatedHeading from '../components/AnimatedHeading';
+import { useLocation } from 'react-router-dom';
 
 const SectionWrapper = ({ children, className = "" }) => (
   <motion.section
@@ -72,9 +73,19 @@ const XIcon = () => (
 );
 
 export default function ContactPage() {
+  const location = useLocation();
+  const selectedPlan = location.state?.planName || null;
+  const selectedService = location.state?.service || '';
+  const selectedTab = location.state?.tab || '';
+
   const [loading, setLoading] = useState(false);
+  const [planBannerVisible, setPlanBannerVisible] = useState(!!selectedPlan);
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', service: '', message: ''
+    name: '',
+    email: '',
+    phone: '',
+    service: selectedService,
+    message: selectedPlan ? `Interested in: ${selectedPlan} (${selectedTab})\n\n` : ''
   });
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -201,6 +212,28 @@ export default function ContactPage() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-accent-rose/5 rounded-full blur-[120px] pointer-events-none"></div>
                 
                 <h2 className="text-3xl font-display font-bold text-text-white mb-10 tracking-tight">Book a <span className="gradient-text">Strategy</span> Session</h2>
+
+                {/* Selected Plan Banner */}
+                {planBannerVisible && selectedPlan && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8 flex items-center justify-between gap-3 px-5 py-4 rounded-2xl bg-accent-gold-light/10 border border-accent-gold-light/20"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Sparkles size={16} className="text-accent-gold-light shrink-0" />
+                      <span className="font-body text-[13px] text-text-white">
+                        <span className="text-text-secondary">Selected plan: </span>
+                        <span className="font-bold text-accent-gold-light">{selectedPlan}</span>
+                        {selectedTab && <span className="text-text-muted"> · {selectedTab}</span>}
+                      </span>
+                    </div>
+                    <button onClick={() => setPlanBannerVisible(false)} className="text-text-muted hover:text-text-white transition-colors shrink-0">
+                      <X size={14} />
+                    </button>
+                  </motion.div>
+                )}
+
                 <form onSubmit={handleSubmit}>
                   <InputField label="Full Name" id="name" required placeholder="John Doe" value={formData.name} onChange={handleChange} />
                   <InputField label="Electronic Mail" id="email" type="email" required placeholder="john@example.com" value={formData.email} onChange={handleChange} />
