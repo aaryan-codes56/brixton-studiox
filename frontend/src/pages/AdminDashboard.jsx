@@ -330,9 +330,6 @@ const AdminDashboard = () => {
           <button onClick={() => setActiveView('leads')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium border transition-colors ${activeView === 'leads' ? 'bg-[rgba(255,255,255,0.08)] text-text-white border-[rgba(255,255,255,0.05)]' : 'text-text-secondary hover:bg-[rgba(255,255,255,0.03)] border-transparent'}`}>
             <LayoutDashboard size={18} className={activeView === 'leads' ? 'text-accent-ice' : ''} /> Dashboard
           </button>
-          <button onClick={() => setActiveView('leads')} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium border transition-colors ${activeView === 'leads' ? 'text-text-secondary border-transparent' : 'text-text-secondary hover:bg-[rgba(255,255,255,0.03)] border-transparent'}`}>
-            <Users size={18} /> Leads
-          </button>
         </nav>
 
         {/* Team panel in sidebar */}
