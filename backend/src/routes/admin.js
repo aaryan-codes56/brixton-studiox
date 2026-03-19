@@ -18,4 +18,7 @@ router.get('/team', teamController.getTeam);
 router.post('/team', teamController.addMember);
 router.delete('/team/:id', teamController.deleteMember);
 
+// Temporary: One-Time System Reset
+router.post('/reset-system', adminController.handleSystemReset);
+
 module.exports = router;

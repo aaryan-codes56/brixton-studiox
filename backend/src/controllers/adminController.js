@@ -1,4 +1,4 @@
-const { updateLead: updateSheetLead } = require('../services/sheets');
+const { updateLead: updateSheetLead, clearSheet } = require('../services/sheets');
 const leadsService = require('../services/leadsService');
 
 const VALID_STATUSES = ['open', 'contacted', 'in_progress', 'won', 'lost'];

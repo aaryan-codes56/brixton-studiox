@@ -143,9 +143,28 @@ async function updateLead(id, updates) {
 //     initializeSheet();
 // }
 
+/**
+ * Wipes all data from the sheet but preserves the header row.
+ */
+async function clearSheet() {
+  if (!SHEET_ID) return;
+  try {
+    // Clear everything after the first row
+    await sheets.spreadsheets.values.clear({
+      spreadsheetId: SHEET_ID,
+      range: 'Sheet1!A2:K1000',
+    });
+    console.log('Google Sheet data cleared.');
+  } catch (err) {
+    console.error('Failed to clear Google Sheet:', err.message);
+    throw err;
+  }
+}
+
 module.exports = {
   initializeSheet,
   appendLead,
   getAllLeads,
-  updateLead
+  updateLead,
+  clearSheet // Exported
 };
