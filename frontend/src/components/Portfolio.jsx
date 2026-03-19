@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 const portfolioItems = [
   { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', type: 'web', thumbnail: '/assets/portfolio/poppin-flea.png' },
-  { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video' },
-  { id: 2, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', type: 'web' },
-  { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', type: 'web' }
+  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', type: 'web', thumbnail: '/assets/portfolio/pufflio.png' },
+  { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', type: 'web', thumbnail: '/assets/portfolio/varsal-healthcare.png' },
+  { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video' }
 ];
 
 const PortfolioTeaser = () => {
@@ -81,15 +81,19 @@ const PortfolioTeaser = () => {
           >
             {/* Thumbnail Image or Placeholder */}
             <div 
-              className="absolute inset-0 bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-1000"
+              className="absolute inset-0 bg-[#0a0a0a] flex items-center justify-center group-hover:scale-105 transition-transform duration-1000"
               style={{ transform: 'translateZ(-1px)' }}
             >
               {item.thumbnail ? (
-                <img 
-                  src={item.thumbnail} 
-                  alt={item.client} 
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" 
-                />
+                <div className="w-full h-full p-2">
+                  <div className="w-full h-full rounded-lg overflow-hidden border border-white/5 bg-black/40 group-hover:border-white/10 transition-colors">
+                    <img 
+                      src={item.thumbnail} 
+                      alt={item.client} 
+                      className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
+                    />
+                  </div>
+                </div>
               ) : (
                 <span className={`font-display font-bold text-4xl transform -rotate-45 opacity-20 ${item.color}`}>{item.category}</span>
               )}

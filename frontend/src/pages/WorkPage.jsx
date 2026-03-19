@@ -11,18 +11,12 @@ const categories = ['All', 'Brand Films', 'Short-Form', 'Websites', 'Apps', 'Com
 
 const portfolioItems = [
   { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/poppin-flea.png', url: 'https://www.poppinflea.in/' },
-  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[4/5]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
+  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
   { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
-  { id: 3, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', size: 'aspect-[16/9]' },
-  { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', size: 'aspect-[9/16]' },
-  { id: 5, category: 'Websites', client: 'Vogue E-comm', color: 'text-accent-gold-light', size: 'aspect-[4/5]' },
-  { id: 6, category: 'Apps', client: 'CryptoTrack', color: 'text-accent-ice', size: 'aspect-[16/9]' },
   { id: 7, category: 'Brand Films', client: 'Elevate Real Estate', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 8, category: 'Short-Form', client: 'Glow Cosmetics', color: 'text-accent-rose', size: 'aspect-[9/16]' },
-  { id: 9, category: 'Websites', client: 'Horizon Homes', color: 'text-accent-violet-light', size: 'aspect-square' },
-  { id: 10, category: 'Apps', client: 'EcoLife Plus', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
 ];
 
 const WorkPageHero = () => (
@@ -95,13 +89,17 @@ export default function WorkPage() {
                   className={`group relative ${item.size} w-full rounded-3xl overflow-hidden bg-[#0a0a0a] border border-white/5 cursor-pointer break-inside-avoid shadow-2xl`}
                 >
                   {/* Thumbnail Image or Placeholder */}
-                  <div className="absolute inset-0 bg-void flex flex-col items-center justify-center group-hover:scale-110 transition-transform duration-1000 ease-out">
+                  <div className="absolute inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-1000 ease-out">
                     {item.thumbnail ? (
-                      <img 
-                        src={item.thumbnail} 
-                        alt={item.client} 
-                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" 
-                      />
+                      <div className="w-full h-full p-2">
+                        <div className="w-full h-full rounded-xl overflow-hidden border border-white/5 bg-black/40 group-hover:border-white/10 transition-colors">
+                          <img 
+                            src={item.thumbnail} 
+                            alt={item.client} 
+                            className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
+                          />
+                        </div>
+                      </div>
                     ) : (
                       <>
                         <span className={`font-display font-bold text-4xl md:text-6xl transform -rotate-45 opacity-5 whitespace-nowrap ${item.color}`}>{item.category}</span>
