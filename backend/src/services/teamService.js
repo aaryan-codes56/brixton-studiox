@@ -41,4 +41,9 @@ async function deleteMember(id) {
   await fs.writeFile(TEAM_FILE, JSON.stringify(filtered, null, 2));
 }
 
-module.exports = { getTeam, addMember, deleteMember };
+async function clearTeam() {
+  await ensureFile();
+  await fs.writeFile(TEAM_FILE, JSON.stringify([], null, 2));
+}
+
+module.exports = { getTeam, addMember, deleteMember, clearTeam };

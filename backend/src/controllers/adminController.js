@@ -1,5 +1,6 @@
 const { updateLead: updateSheetLead, clearSheet } = require('../services/sheets');
 const leadsService = require('../services/leadsService');
+const teamService = require('../services/teamService');
 
 const VALID_STATUSES = ['open', 'contacted', 'in_progress', 'won', 'lost'];
 
@@ -85,5 +86,29 @@ exports.exportCSV = async (req, res) => {
   } catch (error) {
     console.error('Error exporting CSV:', error);
     res.status(500).json({ success: false, message: 'Failed to export CSV' });
+  }
+};
+
+/**
+ * Perform a full system reset: Clear leads, team, and Google Sheet.
+ */
+exports.handleSystemReset = async (req, res) => {
+  try {
+    console.log('🔄 [Admin] Starting full system reset...');
+    
+    // 1. Clear local leads and team
+    await leadsService.clearAllLeads();
+    await teamService.clearTeam();
+
+    // 2. Clear Google Sheet
+    if (process.env.GOOGLE_SHEET_ID) {
+      await clearSheet();
+    }
+
+    console.log('✅ [Admin] System reset successful');
+    res.json({ success: true, message: 'System reset successful. All data cleared.' });
+  } catch (error) {
+    console.error('❌ [Admin] System reset failed:', error);
+    res.status(500).json({ success: false, message: error.message || 'System reset failed' });
   }
 };
