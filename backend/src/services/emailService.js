@@ -142,4 +142,31 @@ async function sendLeadNotification(lead) {
   console.log(`[Email] Booking alert sent to admin: ${process.env.ADMIN_EMAIL}`);
 }
 
-module.exports = { sendLeadNotification, sendClientConfirmation };
+/**
+ * Diagnostic: Tests the email configuration and returns the result.
+ */
+async function testEmail(toEmail) {
+  if (!isConfigured()) {
+    throw new Error('Email credentials (EMAIL_USER or EMAIL_PASS) are missing in environment variables.');
+  }
+
+  const transporter = createTransporter();
+  await transporter.verify();
+  
+  const info = await transporter.sendMail({
+    from: `"Brixton StudioX" <${process.env.EMAIL_USER}>`,
+    to: toEmail || process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+    subject: '🧪 SMTP Test Success — Brixton StudioX',
+    html: `
+      <div style="font-family:sans-serif;padding:20px;background:#f4f4f4;">
+        <h2 style="color:#7c3aed;">SMTP Connection Verified!</h2>
+        <p>This is a test email sent from your Brixton StudioX backend to verify that your credentials are working.</p>
+        <p><b>Sent At:</b> ${new Date().toLocaleString()}</p>
+        <p><b>Service:</b> Gmail</p>
+      </div>
+    `
+  });
+  return info;
+}
+
+module.exports = { sendLeadNotification, sendClientConfirmation, testEmail };

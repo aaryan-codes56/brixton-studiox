@@ -308,6 +308,23 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleTestEmail = async () => {
+    const email = window.prompt('Enter an email address to send a test message to:', user?.email || '');
+    if (!email) return;
+
+    const tid = toast.loading('Sending test email...');
+    try {
+      const res = await api.post('/admin/test-email', { testEmail: email });
+      if (res.data.success) {
+        toast.success(res.data.message, { id: tid });
+      }
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Email test failed';
+      const hint = err.response?.data?.hint || '';
+      toast.error(`${msg}. ${hint}`, { id: tid, duration: 6000 });
+    }
+  };
+
   const exportCSV = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -409,6 +426,9 @@ const AdminDashboard = () => {
                 </button>
                 <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-gold-light/10 border border-accent-gold-light/20 hover:bg-accent-gold-light/20 text-sm font-medium text-accent-gold-light transition-colors">
                   <Download size={15} /> Export CSV
+                </button>
+                <button onClick={handleTestEmail} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-violet/10 border border-accent-violet/20 hover:bg-accent-violet/20 text-sm font-medium text-accent-violet-light transition-colors">
+                  <RefreshCw size={15} /> Test Email
                 </button>
                 <button onClick={() => fetchLeads(true)} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[rgba(255,255,255,0.03)] border border-border-subtle hover:bg-[rgba(255,255,255,0.08)] text-sm font-medium transition-colors">
                   <RefreshCw size={15} className={loading ? 'animate-spin' : ''} /> Refresh

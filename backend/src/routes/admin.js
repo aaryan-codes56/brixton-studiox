@@ -13,6 +13,7 @@ router.get('/leads/export/csv', adminController.exportCSV);
 router.patch('/leads/:id', adminController.patchLead);
 router.post('/leads/:id/notes', adminController.addNote);
 router.delete('/leads', adminController.clearLeads);
+router.post('/test-email', adminController.handleTestEmail);
 
 // Team Members
 router.get('/team', teamController.getTeam);
