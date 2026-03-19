@@ -11,12 +11,18 @@ const categories = ['All', 'Brand Films', 'Short-Form', 'Websites', 'Apps', 'Com
 
 const portfolioItems = [
   { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/poppin-flea.png', url: 'https://www.poppinflea.in/' },
-  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
+  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[4/5]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
   { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
+  { id: 3, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', size: 'aspect-[16/9]' },
+  { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', size: 'aspect-[9/16]' },
+  { id: 5, category: 'Websites', client: 'Vogue E-comm', color: 'text-accent-gold-light', size: 'aspect-[4/5]' },
+  { id: 6, category: 'Apps', client: 'CryptoTrack', color: 'text-accent-ice', size: 'aspect-[16/9]' },
   { id: 7, category: 'Brand Films', client: 'Elevate Real Estate', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 8, category: 'Short-Form', client: 'Glow Cosmetics', color: 'text-accent-rose', size: 'aspect-[9/16]' },
+  { id: 9, category: 'Websites', client: 'Horizon Homes', color: 'text-accent-violet-light', size: 'aspect-square' },
+  { id: 10, category: 'Apps', client: 'EcoLife Plus', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
 ];
 
 const WorkPageHero = () => (
@@ -89,17 +95,13 @@ export default function WorkPage() {
                   className={`group relative ${item.size} w-full rounded-3xl overflow-hidden bg-[#0a0a0a] border border-white/5 cursor-pointer break-inside-avoid shadow-2xl`}
                 >
                   {/* Thumbnail Image or Placeholder */}
-                  <div className="absolute inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center group-hover:scale-105 transition-transform duration-1000 ease-out">
+                  <div className="absolute inset-0 bg-void flex flex-col items-center justify-center group-hover:scale-110 transition-transform duration-1000 ease-out">
                     {item.thumbnail ? (
-                      <div className="w-full h-full p-2">
-                        <div className="w-full h-full rounded-xl overflow-hidden border border-white/5 bg-black/40 group-hover:border-white/10 transition-colors">
-                          <img 
-                            src={item.thumbnail} 
-                            alt={item.client} 
-                            className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
-                          />
-                        </div>
-                      </div>
+                      <img 
+                        src={item.thumbnail} 
+                        alt={item.client} 
+                        className={`w-full h-full object-cover ${item.category === 'Websites' ? 'object-top' : 'object-center'} opacity-60 group-hover:opacity-80 transition-opacity duration-700`} 
+                      />
                     ) : (
                       <>
                         <span className={`font-display font-bold text-4xl md:text-6xl transform -rotate-45 opacity-5 whitespace-nowrap ${item.color}`}>{item.category}</span>
@@ -110,15 +112,23 @@ export default function WorkPage() {
                   
                   {/* Play/External Link Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center z-20">
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
-                      {item.category === 'Websites' ? (
+                    {item.url ? (
+                      <a 
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl pointer-events-auto"
+                      >
                         <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                      ) : (
+                      </a>
+                    ) : (
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
                         <Play className="ml-1 w-6 h-6 md:w-8 md:h-8" fill="currentColor" strokeWidth={0} />
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Hover Details Overlay */}
@@ -178,7 +188,7 @@ export default function WorkPage() {
                      <img 
                        src={selectedItem.thumbnail} 
                        alt={selectedItem.client} 
-                       className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-1000" 
+                       className={`absolute inset-0 w-full h-full object-cover ${selectedItem.category === 'Websites' ? 'object-top' : 'object-center'} opacity-50 group-hover:opacity-70 transition-opacity duration-1000`} 
                      />
                    ) : (
                      <div className="text-center relative z-10 p-12">

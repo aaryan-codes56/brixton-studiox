@@ -3,9 +3,9 @@ import { Play, ArrowRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const portfolioItems = [
-  { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', type: 'web', thumbnail: '/assets/portfolio/poppin-flea.png' },
-  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', type: 'web', thumbnail: '/assets/portfolio/pufflio.png' },
-  { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', type: 'web', thumbnail: '/assets/portfolio/varsal-healthcare.png' },
+  { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', type: 'web', thumbnail: '/assets/portfolio/poppin-flea.png', url: 'https://www.poppinflea.in/' },
+  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', type: 'web', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
+  { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', type: 'web', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video' }
 ];
 
@@ -81,19 +81,15 @@ const PortfolioTeaser = () => {
           >
             {/* Thumbnail Image or Placeholder */}
             <div 
-              className="absolute inset-0 bg-[#0a0a0a] flex items-center justify-center group-hover:scale-105 transition-transform duration-1000"
+              className="absolute inset-0 bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-1000"
               style={{ transform: 'translateZ(-1px)' }}
             >
               {item.thumbnail ? (
-                <div className="w-full h-full p-2">
-                  <div className="w-full h-full rounded-lg overflow-hidden border border-white/5 bg-black/40 group-hover:border-white/10 transition-colors">
-                    <img 
-                      src={item.thumbnail} 
-                      alt={item.client} 
-                      className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-700" 
-                    />
-                  </div>
-                </div>
+                <img 
+                  src={item.thumbnail} 
+                  alt={item.client} 
+                  className={`w-full h-full object-cover ${item.type === 'web' ? 'object-top' : 'object-center'} opacity-60 group-hover:opacity-80 transition-opacity duration-700`} 
+                />
               ) : (
                 <span className={`font-display font-bold text-4xl transform -rotate-45 opacity-20 ${item.color}`}>{item.category}</span>
               )}
@@ -101,16 +97,23 @@ const PortfolioTeaser = () => {
             
             {/* Action Overlay */}
             <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              className="absolute inset-0 flex items-center justify-center z-20"
               style={{ transform: 'translateZ(50px)' }}
             >
-              <div className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300">
-                {item.type === 'web' ? (
+              {item.url ? (
+                <a 
+                  href={item.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300 pointer-events-auto"
+                >
                   <ExternalLink className="w-6 h-6" />
-                ) : (
+                </a>
+              ) : (
+                <div className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300">
                   <Play className="ml-1 w-6 h-6" fill="currentColor" strokeWidth={0} />
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* Hover Details */}
