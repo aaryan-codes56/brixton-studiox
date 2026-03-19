@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 const portfolioItems = [
   { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', type: 'web', thumbnail: '/assets/portfolio/poppin-flea.png', url: 'https://www.poppinflea.in/' },
-  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', type: 'web', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
-  { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', type: 'web', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
-  { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video' }
+  { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video', url: '/work' },
+  { id: 2, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', type: 'web', url: 'https://brixtonstudiox.vercel.app' },
+  { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', type: 'web', url: '/work' }
 ];
 
 const PortfolioTeaser = () => {
@@ -58,8 +58,11 @@ const PortfolioTeaser = () => {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
       >
         {portfolioItems.map((item, idx) => (
-          <motion.div
+          <motion.a
             key={item.id}
+            href={item.url}
+            target={item.url.startsWith('http') ? "_blank" : "_self"}
+            rel={item.url.startsWith('http') ? "noopener noreferrer" : ""}
             variants={{
               hidden: { opacity: 0, scale: 0.9, y: 30 },
               visible: { 
@@ -76,7 +79,7 @@ const PortfolioTeaser = () => {
               rotateY: 5,
               transition: { duration: 0.4, ease: "easeOut" }
             }}
-            className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-secondary border border-border-medium cursor-none-interactive shadow-xl hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
+            className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-secondary border border-border-medium cursor-pointer shadow-xl hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* Thumbnail Image or Placeholder */}
@@ -88,7 +91,7 @@ const PortfolioTeaser = () => {
                 <img 
                   src={item.thumbnail} 
                   alt={item.client} 
-                  className={`w-full h-full object-cover ${item.type === 'web' ? 'object-top' : 'object-center'} opacity-60 group-hover:opacity-80 transition-opacity duration-700`} 
+                  className={`w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 ${item.client === 'Poppin Flea' ? 'object-top' : 'object-center'}`} 
                 />
               ) : (
                 <span className={`font-display font-bold text-4xl transform -rotate-45 opacity-20 ${item.color}`}>{item.category}</span>
@@ -97,23 +100,16 @@ const PortfolioTeaser = () => {
             
             {/* Action Overlay */}
             <div 
-              className="absolute inset-0 flex items-center justify-center z-20"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
               style={{ transform: 'translateZ(50px)' }}
             >
-              {item.url ? (
-                <a 
-                  href={item.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300 pointer-events-auto"
-                >
+              <div className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300">
+                {item.type === 'web' ? (
                   <ExternalLink className="w-6 h-6" />
-                </a>
-              ) : (
-                <div className="w-14 h-14 rounded-full bg-[rgba(0,0,0,0.4)] backdrop-blur-md flex items-center justify-center border border-border-strong text-text-white transform group-hover:scale-110 group-hover:bg-[rgba(124,58,237,0.4)] group-hover:border-accent-violet-light transition-all duration-300">
+                ) : (
                   <Play className="ml-1 w-6 h-6" fill="currentColor" strokeWidth={0} />
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {/* Hover Details */}
@@ -124,7 +120,7 @@ const PortfolioTeaser = () => {
               <span className={`${item.color} font-body text-[11px] font-semibold tracking-widest uppercase mb-2`}>{item.category}</span>
               <h3 className="text-xl md:text-2xl font-display font-bold text-text-white">{item.client}</h3>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </motion.div>
     </section>

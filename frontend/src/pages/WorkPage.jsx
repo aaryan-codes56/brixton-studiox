@@ -100,7 +100,7 @@ export default function WorkPage() {
                       <img 
                         src={item.thumbnail} 
                         alt={item.client} 
-                        className={`w-full h-full object-cover ${item.category === 'Websites' ? 'object-top' : 'object-center'} opacity-60 group-hover:opacity-80 transition-opacity duration-700`} 
+                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" 
                       />
                     ) : (
                       <>
@@ -112,23 +112,15 @@ export default function WorkPage() {
                   
                   {/* Play/External Link Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center z-20">
-                    {item.url ? (
-                      <a 
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl pointer-events-auto"
-                      >
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
+                      {item.category === 'Websites' ? (
                         <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                      </a>
-                    ) : (
-                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
+                      ) : (
                         <Play className="ml-1 w-6 h-6 md:w-8 md:h-8" fill="currentColor" strokeWidth={0} />
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                   {/* Hover Details Overlay */}
@@ -188,7 +180,7 @@ export default function WorkPage() {
                      <img 
                        src={selectedItem.thumbnail} 
                        alt={selectedItem.client} 
-                       className={`absolute inset-0 w-full h-full object-cover ${selectedItem.category === 'Websites' ? 'object-top' : 'object-center'} opacity-50 group-hover:opacity-70 transition-opacity duration-1000`} 
+                       className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-1000" 
                      />
                    ) : (
                      <div className="text-center relative z-10 p-12">
