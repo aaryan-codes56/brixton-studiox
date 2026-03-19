@@ -8,7 +8,7 @@ import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
 import Pricing from '../components/Pricing';
 import Testimonials from '../components/Testimonials';
-
+import SEO from '../components/SEO';
 import BackdropOrbs from '../components/BackdropOrbs';
 
 const SectionWrapper = ({ children, className = "" }) => (
@@ -103,6 +103,11 @@ const CTABanner = () => (
 const HomePage = () => {
   return (
     <div className="min-h-screen bg-void relative selection:bg-accent-violet/30 overflow-x-hidden">
+      <SEO
+        title="Cinematic Branding & Digital Agency"
+        description="Brixton StudioX — Premium Video Production, Social Media Management, and Web & App Development for brands that demand excellence. First shoot free."
+        url="/"
+      />
       <BackdropOrbs />
       <Navbar />
       <main className="relative z-10">

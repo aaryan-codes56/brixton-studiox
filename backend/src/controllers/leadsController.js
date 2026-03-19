@@ -1,5 +1,6 @@
 const { appendLead } = require('../services/sheets');
 const leadsService = require('../services/leadsService');
+const { sendLeadNotification } = require('../services/emailService');
 const crypto = require('crypto');
 const { validationResult } = require('express-validator');
 
@@ -24,6 +25,7 @@ exports.createLead = async (req, res) => {
       status: 'open',
       comment: '',
       assignedTo: '',
+      notes: [],
       createdAt: timestamp,
       updatedAt: timestamp
     };
@@ -31,14 +33,13 @@ exports.createLead = async (req, res) => {
     // Store locally (Primary)
     await leadsService.saveLead(lead);
 
-    // Sync to Google Sheets (Secondary)
-    if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY && process.env.GOOGLE_PRIVATE_KEY.includes('BEGIN PRIVATE KEY')) {
-        try {
-            await appendLead(lead);
-        } catch (sheetError) {
-            console.error('Failed to sync to Google Sheets:', sheetError.message);
-        }
+    // Fire-and-forget: Google Sheets sync
+    if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY?.includes('BEGIN PRIVATE KEY')) {
+      appendLead(lead).catch(err => console.error('Failed to sync to Google Sheets:', err.message));
     }
+
+    // Fire-and-forget: Email notification to admin
+    sendLeadNotification(lead).catch(err => console.error('Failed to send email notification:', err.message));
 
     res.status(201).json({ success: true, message: 'Your call request has been received!' });
   } catch (error) {

@@ -7,6 +7,7 @@ import WhatsappBtn from '../components/WhatsappBtn';
 import { Link } from 'react-router-dom';
 import PageWrapper from '../components/PageWrapper';
 import AnimatedHeading from '../components/AnimatedHeading';
+import SEO from '../components/SEO';
 
 // Maps pricing tab names to contact form service values
 const tabToService = {
@@ -209,14 +210,19 @@ export default function PricingPage() {
 
   return (
     <PageWrapper>
+      <SEO
+        title="Pricing & Packages"
+        description="Transparent pricing for video production, social media management, web development, and app development. Starting from ₹1,499. First shoot is FREE."
+        url="/pricing"
+      />
       <Navbar />
       
       <main>
         <PricingPageHero />
         
         <SectionWrapper className="py-16 max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex justify-center mb-12 overflow-visible">
-            <div className="flex flex-wrap items-center justify-center gap-3 p-1.5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-xl">
+          <div className="flex justify-center mb-12">
+            <div className="flex items-center gap-2 p-1.5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-xl overflow-x-auto max-w-full scrollbar-none" style={{WebkitOverflowScrolling: 'touch'}}>
               {tabs.map((tab) => (
                 <button
                   key={tab}

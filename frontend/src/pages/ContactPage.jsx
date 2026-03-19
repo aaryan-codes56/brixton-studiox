@@ -9,6 +9,7 @@ import WhatsappBtn from '../components/WhatsappBtn';
 import PageWrapper from '../components/PageWrapper';
 import AnimatedHeading from '../components/AnimatedHeading';
 import { useLocation } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const SectionWrapper = ({ children, className = "" }) => (
   <motion.section
@@ -111,6 +112,11 @@ export default function ContactPage() {
 
   return (
     <PageWrapper>
+      <SEO
+        title="Book a Strategy Call"
+        description="Connect with Brixton StudioX. Book a free strategy call to discuss your brand's video, social media, or web development needs. We respond within 24 hours."
+        url="/contact"
+      />
       <Navbar />
       
       <main className="flex-1">

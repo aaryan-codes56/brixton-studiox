@@ -62,8 +62,35 @@ async function updateLead(id, updates) {
   return updatedLead;
 }
 
+/**
+ * Adds a timestamped note to a lead by ID
+ */
+async function addNote(id, { text, author = 'Admin' }) {
+  await ensureDataDir();
+  const data = await fs.readFile(LEADS_FILE, 'utf8');
+  let leads = JSON.parse(data);
+
+  const index = leads.findIndex(l => l.id === id);
+  if (index === -1) throw new Error('Lead not found');
+
+  const note = {
+    id: `note-${Date.now()}`,
+    text,
+    author,
+    createdAt: new Date().toISOString()
+  };
+
+  if (!leads[index].notes) leads[index].notes = [];
+  leads[index].notes.push(note);
+  leads[index].updatedAt = new Date().toISOString();
+
+  await fs.writeFile(LEADS_FILE, JSON.stringify(leads, null, 2));
+  return note;
+}
+
 module.exports = {
   saveLead,
   getLeads,
-  updateLead
+  updateLead,
+  addNote
 };
