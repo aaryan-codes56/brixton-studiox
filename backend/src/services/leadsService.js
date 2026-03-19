@@ -20,6 +20,17 @@ async function ensureDataDir() {
 }
 
 /**
+ * Generates the next sequential BX ID (BX01, BX02, ...)
+ */
+async function generateId() {
+  await ensureDataDir();
+  const data = await fs.readFile(LEADS_FILE, 'utf8');
+  const leads = JSON.parse(data);
+  const next = leads.length + 1;
+  return `BX${String(next).padStart(2, '0')}`;
+}
+
+/**
  * Saves a new lead to the local JSON file
  */
 async function saveLead(lead) {
@@ -89,6 +100,7 @@ async function addNote(id, { text, author = 'Admin' }) {
 }
 
 module.exports = {
+  generateId,
   saveLead,
   getLeads,
   updateLead,

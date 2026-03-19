@@ -15,8 +15,11 @@ exports.createLead = async (req, res) => {
     const { name, email, phone, service, message } = req.body;
     const timestamp = new Date().toISOString();
 
+    // Generate sequential BX ID
+    const id = await leadsService.generateId();
+
     const lead = {
-      id: crypto.randomUUID(),
+      id,
       name,
       email,
       phone,
