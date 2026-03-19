@@ -3,9 +3,9 @@ import { Play, ArrowRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const portfolioItems = [
+  { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', type: 'web', thumbnail: '/assets/portfolio/poppin-flea.png' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', type: 'video' },
   { id: 2, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', type: 'web' },
-  { id: 3, category: 'Commercials', client: 'TechNova', color: 'text-accent-gold-light', type: 'video' },
   { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', type: 'web' }
 ];
 
@@ -79,12 +79,20 @@ const PortfolioTeaser = () => {
             className="group relative aspect-[4/5] rounded-xl overflow-hidden bg-secondary border border-border-medium cursor-none-interactive shadow-xl hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
             style={{ transformStyle: 'preserve-3d' }}
           >
-            {/* Dark placeholder */}
+            {/* Thumbnail Image or Placeholder */}
             <div 
-              className="absolute inset-0 bg-primary flex items-center justify-center opacity-60 group-hover:scale-110 transition-transform duration-1000"
+              className="absolute inset-0 bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-1000"
               style={{ transform: 'translateZ(-1px)' }}
             >
-              <span className={`font-display font-bold text-4xl transform -rotate-45 opacity-20 ${item.color}`}>{item.category}</span>
+              {item.thumbnail ? (
+                <img 
+                  src={item.thumbnail} 
+                  alt={item.client} 
+                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" 
+                />
+              ) : (
+                <span className={`font-display font-bold text-4xl transform -rotate-45 opacity-20 ${item.color}`}>{item.category}</span>
+              )}
             </div>
             
             {/* Action Overlay */}

@@ -10,6 +10,9 @@ import AnimatedHeading from '../components/AnimatedHeading';
 const categories = ['All', 'Brand Films', 'Short-Form', 'Websites', 'Apps', 'Commercials'];
 
 const portfolioItems = [
+  { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/poppin-flea.png', url: 'https://www.poppinflea.in/' },
+  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[4/5]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
+  { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
   { id: 3, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', size: 'aspect-[16/9]' },
@@ -91,16 +94,32 @@ export default function WorkPage() {
                   onClick={() => setSelectedItem(item)}
                   className={`group relative ${item.size} w-full rounded-3xl overflow-hidden bg-[#0a0a0a] border border-white/5 cursor-pointer break-inside-avoid shadow-2xl`}
                 >
-                  {/* Dark placeholder background */}
+                  {/* Thumbnail Image or Placeholder */}
                   <div className="absolute inset-0 bg-void flex flex-col items-center justify-center group-hover:scale-110 transition-transform duration-1000 ease-out">
-                    <span className={`font-display font-bold text-4xl md:text-6xl transform -rotate-45 opacity-5 whitespace-nowrap ${item.color}`}>{item.category}</span>
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent"></div>
+                    {item.thumbnail ? (
+                      <img 
+                        src={item.thumbnail} 
+                        alt={item.client} 
+                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" 
+                      />
+                    ) : (
+                      <>
+                        <span className={`font-display font-bold text-4xl md:text-6xl transform -rotate-45 opacity-5 whitespace-nowrap ${item.color}`}>{item.category}</span>
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent"></div>
+                      </>
+                    )}
                   </div>
                   
-                  {/* Play Button Overlay */}
+                  {/* Play/External Link Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center z-20">
                     <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-void/60 backdrop-blur-xl flex items-center justify-center border border-white/10 text-text-white transform group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
-                      <Play className="ml-1 w-6 h-6 md:w-8 md:h-8" fill="currentColor" strokeWidth={0} />
+                      {item.category === 'Websites' ? (
+                        <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      ) : (
+                        <Play className="ml-1 w-6 h-6 md:w-8 md:h-8" fill="currentColor" strokeWidth={0} />
+                      )}
                     </div>
                   </div>
 
@@ -156,11 +175,21 @@ export default function WorkPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div className="aspect-video lg:aspect-auto bg-black flex items-center justify-center relative overflow-hidden group">
                    <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/10 to-accent-ice/10"></div>
-                   <div className="text-center relative z-10 p-12">
-                     <Play size={80} className="mx-auto mb-6 text-white/10 group-hover:text-white/30 transition-colors duration-700" strokeWidth={0.5} />
-                     <p className="text-text-secondary font-body font-bold tracking-widest uppercase text-xs">Project Preview</p>
-                   </div>
-                   {/* Animated grain */}
+                   
+                   {selectedItem.thumbnail ? (
+                     <img 
+                       src={selectedItem.thumbnail} 
+                       alt={selectedItem.client} 
+                       className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-1000" 
+                     />
+                   ) : (
+                     <div className="text-center relative z-10 p-12">
+                       <Play size={80} className="mx-auto mb-6 text-white/10 group-hover:text-white/30 transition-colors duration-700" strokeWidth={0.5} />
+                       <p className="text-text-secondary font-body font-bold tracking-widest uppercase text-xs">Project Preview</p>
+                     </div>
+                   )}
+
+                   {/* Static noise overlay for cinematic feel */}
                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay">
                      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat animate-noise"></div>
                    </div>
@@ -180,9 +209,20 @@ export default function WorkPage() {
                       : `A comprehensive ${selectedItem.category.toLowerCase()} campaign developed for ${selectedItem.client}. This project showcases our ability to blend beautiful visuals with striking narratives for global audiences.`
                     }
                   </p>
-                  <button className="self-start px-10 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white font-body font-bold text-sm tracking-widest transition-all uppercase">
-                    Launch Project
-                  </button>
+                  {selectedItem.url ? (
+                    <a 
+                      href={selectedItem.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="self-start px-10 py-4 rounded-full bg-[var(--gradient-brand)] border border-accent-violet/20 hover:scale-105 text-white font-body font-bold text-sm tracking-widest transition-all uppercase shadow-lg shadow-accent-violet/20"
+                    >
+                      Launch Website
+                    </a>
+                  ) : (
+                    <button className="self-start px-10 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white font-body font-bold text-sm tracking-widest transition-all uppercase">
+                      Launch Project
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>
