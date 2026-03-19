@@ -9,12 +9,6 @@ const PORT = process.env.PORT || 5000;
 const { initializeSheet } = require('./services/sheets');
 const { verifyConnection } = require('./services/emailService');
 
-// Initialize Google Sheets
-initializeSheet();
-
-// Verify Email Connection
-verifyConnection();
-
 // Middleware
 app.use(helmet());
 app.use(cors({
@@ -45,6 +39,19 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
   
+  // One-time wipe for hosted data (temporary)
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const dataDir = path.join(__dirname, 'data');
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
+    fs.writeFileSync(path.join(dataDir, 'leads.json'), '[]');
+    fs.writeFileSync(path.join(dataDir, 'team.json'), '[]');
+    console.log('🧹 One-time data wipe performed.');
+  } catch (e) {
+    console.error('Wipe error:', e.message);
+  }
+
   // Initialize services in background after server is up
   initializeSheet().catch(err => console.error('Sheet init error:', err.message));
   verifyConnection().catch(err => console.error('Email verify error:', err.message));

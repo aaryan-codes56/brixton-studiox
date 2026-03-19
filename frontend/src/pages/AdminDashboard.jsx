@@ -306,21 +306,6 @@ const AdminDashboard = () => {
     } catch { toast.error('Failed to export CSV'); }
   };
 
-  const handleResetSystem = async () => {
-    if (!window.confirm('🚨 DANGER: This will PERMANENTLY DELETE all leads from the Dashboard AND the Google Sheet. This cannot be undone. Are you absolutely sure?')) return;
-    
-    setLoading(true);
-    try {
-      await api.post('/admin/reset-system');
-      toast.success('System reset successful! Starting fresh.');
-      setLeads([]);
-    } catch {
-      toast.error('System reset failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const filteredLeads = leads.filter(lead => {
     const matchesSearch = [lead.name, lead.email, lead.phone, lead.service, lead.assignedTo]
       .some(v => v?.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -405,9 +390,6 @@ const AdminDashboard = () => {
               <div className="flex gap-2">
                 <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-gold-light/10 border border-accent-gold-light/20 hover:bg-accent-gold-light/20 text-sm font-medium text-accent-gold-light transition-colors">
                   <Download size={15} /> Export CSV
-                </button>
-                <button onClick={handleResetSystem} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-sm font-medium text-rose-500 transition-colors">
-                  <Trash2 size={15} /> Fresh Start
                 </button>
                 <button onClick={() => fetchLeads(true)} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[rgba(255,255,255,0.03)] border border-border-subtle hover:bg-[rgba(255,255,255,0.08)] text-sm font-medium transition-colors">
                   <RefreshCw size={15} className={loading ? 'animate-spin' : ''} /> Refresh
