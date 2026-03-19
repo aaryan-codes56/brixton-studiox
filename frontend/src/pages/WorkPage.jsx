@@ -11,7 +11,7 @@ const categories = ['All', 'Brand Films', 'Short-Form', 'Websites', 'Apps', 'Com
 
 const portfolioItems = [
   { id: 11, category: 'Websites', client: 'Poppin Flea', color: 'text-accent-rose', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/poppin-flea.png', url: 'https://www.poppinflea.in/' },
-  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[4/5]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
+  { id: 12, category: 'Websites', client: 'Pufflio', color: 'text-accent-ice', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/pufflio.png', url: 'https://www.pufflio.in/' },
   { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
