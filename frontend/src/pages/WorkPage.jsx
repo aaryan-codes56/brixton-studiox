@@ -15,13 +15,10 @@ const portfolioItems = [
   { id: 13, category: 'Websites', client: 'Varsal Healthcare', color: 'text-accent-violet-light', size: 'aspect-[16/9]', thumbnail: '/assets/portfolio/varsal-healthcare.png', url: 'https://varsalhealthcare.in/' },
   { id: 1, category: 'Brand Films', client: 'Luxe Athletics', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 2, category: 'Short-Form', client: 'Cafe Mocha', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
-  { id: 3, category: 'Websites', client: 'Nexus SaaS', color: 'text-accent-ice', size: 'aspect-[16/9]' },
   { id: 4, category: 'Apps', client: 'Volt Fitness', color: 'text-accent-rose', size: 'aspect-[9/16]' },
-  { id: 5, category: 'Websites', client: 'Vogue E-comm', color: 'text-accent-gold-light', size: 'aspect-[4/5]' },
   { id: 6, category: 'Apps', client: 'CryptoTrack', color: 'text-accent-ice', size: 'aspect-[16/9]' },
   { id: 7, category: 'Brand Films', client: 'Elevate Real Estate', color: 'text-accent-violet-light', size: 'aspect-[4/5]' },
   { id: 8, category: 'Short-Form', client: 'Glow Cosmetics', color: 'text-accent-rose', size: 'aspect-[9/16]' },
-  { id: 9, category: 'Websites', client: 'Horizon Homes', color: 'text-accent-violet-light', size: 'aspect-square' },
   { id: 10, category: 'Apps', client: 'EcoLife Plus', color: 'text-accent-gold-light', size: 'aspect-[9/16]' },
 ];
 
@@ -97,11 +94,11 @@ export default function WorkPage() {
                   {/* Thumbnail Image or Placeholder */}
                   <div className="absolute inset-0 bg-void flex flex-col items-center justify-center group-hover:scale-110 transition-transform duration-1000 ease-out">
                     {item.thumbnail ? (
-                      <img 
-                        src={item.thumbnail} 
-                        alt={item.client} 
-                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" 
-                      />
+                        <img 
+                          src={item.thumbnail} 
+                          alt={item.client} 
+                          className={`w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 ${item.client === 'Poppin Flea' || item.client === 'Pufflio' ? 'object-top' : 'object-center'}`} 
+                        />
                     ) : (
                       <>
                         <span className={`font-display font-bold text-4xl md:text-6xl transform -rotate-45 opacity-5 whitespace-nowrap ${item.color}`}>{item.category}</span>
