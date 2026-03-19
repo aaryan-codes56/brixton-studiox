@@ -43,5 +43,9 @@ app.get('/api/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
+  
+  // Initialize services in background after server is up
+  initializeSheet().catch(err => console.error('Sheet init error:', err.message));
+  verifyConnection().catch(err => console.error('Email verify error:', err.message));
 });
