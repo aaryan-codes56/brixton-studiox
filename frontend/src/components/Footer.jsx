@@ -79,7 +79,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border-subtle pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="font-body text-[12px] text-text-muted">
-            © {new Date().getFullYear()} Brixton StudioX. All rights reserved.
+            © {new Date().getFullYear()} Brixton Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
              <a href="https://www.facebook.com/share/1G2MS3rUnn/" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="Facebook">

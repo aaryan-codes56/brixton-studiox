@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const OG_IMAGE = 'https://brixtonstudiox.vercel.app/og-image.jpg';
-const SITE_NAME = 'Brixton StudioX';
+const SITE_NAME = 'Brixton Studio';
 const SITE_URL = 'https://brixtonstudiox.vercel.app';
 
 /**
@@ -10,7 +10,7 @@ const SITE_URL = 'https://brixtonstudiox.vercel.app';
  */
 export default function SEO({
   title,
-  description = 'Brixton StudioX — Cinematic Video Production, Social Media Management, and Web & App Development for brands that demand excellence.',
+  description = 'Brixton Studio — Cinematic Video Production, Social Media Management, and Web & App Development for brands that demand excellence.',
   image = OG_IMAGE,
   url,
   type = 'website',

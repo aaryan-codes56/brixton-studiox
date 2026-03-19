@@ -52,7 +52,7 @@ const Experience = () => {
         
         {/* Left Col - Text & Features */}
         <div className="flex-1">
-          <span className="font-mono text-accent-purple mb-4 tracking-widest inline-block">// Why Brixton studiox</span>
+          <span className="font-mono text-accent-purple mb-4 tracking-widest inline-block">// Why Brixton Studio</span>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Built for Impact</h2>
           <p className="text-textMuted text-lg mb-12 max-w-xl leading-relaxed">
             We don't just shoot videos; we build brands. With over 3 years of 

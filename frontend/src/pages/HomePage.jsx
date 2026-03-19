@@ -88,7 +88,7 @@ const CTABanner = () => (
         <span className="gradient-text italic opacity-90">Let's craft your story.</span>
       </h2>
       <p className="font-body text-lg text-text-secondary mb-12 max-w-2xl mx-auto">
-        Partner with Brixton StudioX to transform your digital presence. Get a free consultation and strategy blueprint on your first call.
+        Partner with Brixton Studio to transform your digital presence. Get a free consultation and strategy blueprint on your first call.
       </p>
       <Link 
         to="/contact" 
@@ -105,7 +105,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-void relative selection:bg-accent-violet/30 overflow-x-hidden">
       <SEO
         title="Cinematic Branding & Digital Agency"
-        description="Brixton StudioX — Premium Video Production, Social Media Management, and Web & App Development for brands that demand excellence. First shoot free."
+        description="Brixton Studio — Premium Video Production, Social Media Management, and Web & App Development for brands that demand excellence. First shoot free."
         url="/"
       />
       <BackdropOrbs />
