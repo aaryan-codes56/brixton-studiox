@@ -1,6 +1,5 @@
 const { updateLead: updateSheetLead } = require('../services/sheets');
 const leadsService = require('../services/leadsService');
-const { testEmail } = require('../services/emailService');
 
 const VALID_STATUSES = ['open', 'contacted', 'in_progress', 'won', 'lost'];
 
@@ -96,19 +95,5 @@ exports.clearLeads = async (req, res) => {
   } catch (error) {
     console.error('Error clearing leads:', error);
     res.status(500).json({ success: false, message: 'Failed to clear leads' });
-  }
-};
-
-exports.handleTestEmail = async (req, res) => {
-  try {
-    const info = await testEmail(req.body.testEmail);
-    res.json({ success: true, message: `Test email sent successfully! MessageID: ${info.messageId}`, info });
-  } catch (error) {
-    console.error('Email Test Failed:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: error.message,
-      hint: 'Check your EMAIL_USER and EMAIL_PASS on Render. If using Gmail, make sure you are using an APP PASSWORD.'
-    });
   }
 };
