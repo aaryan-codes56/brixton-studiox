@@ -1,6 +1,6 @@
 const { appendLead } = require('../services/sheets');
 const leadsService = require('../services/leadsService');
-const { sendLeadNotification } = require('../services/emailService');
+const { sendLeadNotification, sendClientConfirmation } = require('../services/emailService');
 const crypto = require('crypto');
 const { validationResult } = require('express-validator');
 
@@ -39,7 +39,10 @@ exports.createLead = async (req, res) => {
     }
 
     // Fire-and-forget: Email notification to admin
-    sendLeadNotification(lead).catch(err => console.error('Failed to send email notification:', err.message));
+    sendLeadNotification(lead).catch(err => console.error('Failed to send admin email:', err.message));
+
+    // Fire-and-forget: Confirmation email to client
+    sendClientConfirmation(lead).catch(err => console.error('Failed to send client confirmation:', err.message));
 
     res.status(201).json({ success: true, message: 'Your call request has been received!' });
   } catch (error) {
