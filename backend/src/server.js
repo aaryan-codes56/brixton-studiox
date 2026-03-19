@@ -7,9 +7,13 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const { initializeSheet } = require('./services/sheets');
+const { verifyConnection } = require('./services/emailService');
 
 // Initialize Google Sheets
 initializeSheet();
+
+// Verify Email Connection
+verifyConnection();
 
 // Middleware
 app.use(helmet());
