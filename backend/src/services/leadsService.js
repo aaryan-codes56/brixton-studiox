@@ -99,10 +99,19 @@ async function addNote(id, { text, author = 'Admin' }) {
   return note;
 }
 
+/**
+ * Clears all leads from the local JSON file
+ */
+async function clearAllLeads() {
+  await ensureDataDir();
+  await fs.writeFile(LEADS_FILE, JSON.stringify([], null, 2));
+}
+
 module.exports = {
   generateId,
   saveLead,
   getLeads,
   updateLead,
-  addNote
+  addNote,
+  clearAllLeads
 };

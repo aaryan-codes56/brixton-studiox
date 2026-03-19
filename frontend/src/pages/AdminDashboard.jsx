@@ -292,6 +292,22 @@ const AdminDashboard = () => {
     } catch { /* silent */ }
   };
 
+  const handleResetDatabase = async () => {
+    if (!window.confirm('⚠️ ATTENTION: This will permanently delete ALL leads from the dashboard and reset the ID counter to BX01. This cannot be undone. Are you sure?')) {
+      return;
+    }
+
+    try {
+      const res = await api.delete('/admin/leads');
+      if (res.data.success) {
+        toast.success('Database reset successfully');
+        setLeads([]);
+      }
+    } catch {
+      toast.error('Failed to reset database');
+    }
+  };
+
   const exportCSV = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -388,6 +404,9 @@ const AdminDashboard = () => {
                 </select>
               </div>
               <div className="flex gap-2">
+                <button onClick={handleResetDatabase} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-sm font-medium text-rose-400 transition-colors">
+                  <Trash2 size={15} /> Reset Database
+                </button>
                 <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-gold-light/10 border border-accent-gold-light/20 hover:bg-accent-gold-light/20 text-sm font-medium text-accent-gold-light transition-colors">
                   <Download size={15} /> Export CSV
                 </button>

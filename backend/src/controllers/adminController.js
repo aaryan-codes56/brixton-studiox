@@ -87,3 +87,13 @@ exports.exportCSV = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to export CSV' });
   }
 };
+
+exports.clearLeads = async (req, res) => {
+  try {
+    await leadsService.clearAllLeads();
+    res.json({ success: true, message: 'All leads cleared successfully' });
+  } catch (error) {
+    console.error('Error clearing leads:', error);
+    res.status(500).json({ success: false, message: 'Failed to clear leads' });
+  }
+};
