@@ -35,28 +35,16 @@ const Navbar = () => {
     >
       <div className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo Group with Magnetic feedback */}
-        <MagneticButton>
-          <Link to="/" className="flex items-center gap-3 cursor-pointer group transition-all">
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full transform group-hover:rotate-[120deg] transition-transform duration-1000 ease-in-out">
-                <polygon points="50,5 93,27 93,72 50,95 7,72 7,27" fill="transparent" stroke="url(#hexBrand)" strokeWidth="2" />
-                <circle cx="50" cy="50" r="38" stroke="white" strokeOpacity="0.1" strokeWidth="1" fill="transparent" />
-                <defs>
-                  <linearGradient id="hexBrand" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#7C3AED" />
-                    <stop offset="100%" stopColor="#67E8F9" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="font-display font-bold text-[18px] relative z-10 gradient-text">B</span>
-            </div>
-            
-            <div className="flex flex-col leading-none">
-              <span className="font-body font-black text-[20px] text-text-white tracking-tighter">BRIXTON</span>
-              <span className="font-body font-medium text-[10px] text-accent-ice tracking-[0.4em] mt-0.5 opacity-80">STUDIOX</span>
-            </div>
-          </Link>
-        </MagneticButton>
+        {/* Logo Group */}
+        <Link to="/" className="flex items-center gap-1.5 cursor-pointer hover:opacity-90 transition-opacity">
+          <div className="relative w-14 h-14 flex items-center justify-center">
+            <img src="/logo.png" alt="Brixton StudioX Logo" className="w-full h-full object-contain" />
+          </div>
+          
+          <div className="flex flex-col leading-none">
+            <img src="/logo-text.png" alt="Brixton StudioX" className="h-[44px] w-auto object-contain" />
+          </div>
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-10">

@@ -21,16 +21,12 @@ const Footer = () => {
           
           {/* Column 1: Brand */}
           <div className="flex flex-col items-start gap-4">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="relative w-8 h-8 flex items-center justify-center">
-                <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full transform group-hover:rotate-12 transition-transform duration-500 text-accent-violet">
-                   <polygon points="50,5 93,27 93,72 50,95 7,72 7,27" fill="transparent" stroke="currentColor" strokeWidth="2" />
-                </svg>
-                <span className="font-display font-bold text-[14px] text-text-white z-10">B</span>
+            <Link to="/" className="flex items-center gap-1 hover:opacity-90 transition-opacity">
+              <div className="relative w-11 h-11 flex items-center justify-center">
+                <img src="/logo.png" alt="Brixton StudioX Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
-                <span className="font-body font-bold text-[16px] text-text-white leading-tight">BRIXTON</span>
-                <span className="font-body font-light text-[10px] text-accent-violet-light tracking-[0.3em] leading-tight">STUDIOX</span>
+                <img src="/logo-text.png" alt="Brixton StudioX" className="h-[40px] w-auto object-contain" />
               </div>
             </Link>
             <p className="font-body text-[13px] text-text-secondary mt-2">Brand · Create · Grow</p>
@@ -79,7 +75,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border-subtle pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="font-body text-[12px] text-text-muted">
-            © {new Date().getFullYear()} Brixton Studio. All rights reserved.
+            © {new Date().getFullYear()} Brixton StudioX. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
              <a href="https://www.facebook.com/share/1G2MS3rUnn/" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent-violet-light transition-colors" title="Facebook">

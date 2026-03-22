@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 
+
 // 1. Singleton Transporter setup with explicit SMTP for better reliability
 let transporter = null;
 
@@ -67,7 +68,7 @@ async function sendClientConfirmation(lead) {
         <div style="padding:40px 32px;">
           <h2 style="font-size:20px;margin:0 0 12px;color:#f1f1f1;">Hey ${lead.name}! 👋</h2>
           <p style="font-size:15px;color:#aaa;line-height:1.7;margin:0 0 32px;">
-            Thank you for reaching out to Brixton Studio! We've received your booking request and our team is already reviewing it.
+            Thank you for reaching out to Brixton StudioX! We've received your booking request and our team is already reviewing it.
             <br><br>
             We'll get back to you within <strong style="color:#f59e0b;">48 hours</strong> to discuss the next steps.
           </p>
@@ -90,9 +91,9 @@ async function sendClientConfirmation(lead) {
 
   try {
     const info = await transporter.sendMail({
-      from: `"Brixton Studio" <${process.env.EMAIL_USER.trim()}>`,
+      from: `"Brixton StudioX" <${process.env.EMAIL_USER.trim()}>`,
       to: lead.email,
-      subject: `✅ Booking Confirmed — Brixton Studio`,
+      subject: `✅ Booking Confirmed — Brixton StudioX`,
       html,
     });
     console.log(`[Email] Client confirmation sent: ${info.messageId}`);

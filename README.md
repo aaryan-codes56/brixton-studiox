@@ -1,6 +1,6 @@
-# Brixton Studio ✦ Brand · Create · Grow
+# Brixton StudioX ✦ Brand · Create · Grow
 
-Brixton Studio is a premium, full-service creative and digital agency based in Palwal, Haryana. We empower businesses, creators, and startups by building high-impact brands through cinema-grade video production, strategic digital marketing, and high-performance digital engineering.
+Brixton StudioX is a premium, full-service creative and digital agency based in Palwal, Haryana. We empower businesses, creators, and startups by building high-impact brands through cinema-grade video production, strategic digital marketing, and high-performance digital engineering.
 
 ---
 
@@ -59,8 +59,8 @@ This project includes a custom-built **Lead Management & Automation System**:
 Stay updated with our latest cinematic projects and digital innovations:
 
 - **Instagram:** [@brixtonstudiox.official](https://www.instagram.com/brixtonstudiox.official?igsh=MzY4NnNwaHY1MnFu)
-- **Facebook:** [Brixton Studio on Facebook](https://www.facebook.com/share/1G2MS3rUnn/)
-- **LinkedIn:** [Brixton Studio on LinkedIn](https://www.linkedin.com/company/brixton-studiox/about/?viewAsMember=true)
+- **Facebook:** [Brixton StudioX on Facebook](https://www.facebook.com/share/1G2MS3rUnn/)
+- **LinkedIn:** [Brixton StudioX on LinkedIn](https://www.linkedin.com/company/brixton-studiox/about/?viewAsMember=true)
 - **Threads:** [@brixtonstudiox.official](https://www.threads.com/@brixtonstudiox.official)
 - **X (Twitter):** [@brixtonstudiox](https://x.com/brixtonstudiox)
 
@@ -72,4 +72,4 @@ Stay updated with our latest cinematic projects and digital innovations:
 - **Primary Contact:** +91 97545 93311
 - **Location:** Palwal, Haryana (121102)
 
-© 2026 Brixton Studio. All rights reserved. Registered in Haryana, India.
+© 2026 Brixton StudioX. All rights reserved. Registered in Haryana, India.
