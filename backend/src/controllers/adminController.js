@@ -1,16 +1,18 @@
-const { updateLead: updateSheetLead, clearSheet } = require('../services/sheets');
-const leadsService = require('../services/leadsService');
+const sheets = require('../services/sheets');
 const teamService = require('../services/teamService');
 
 const VALID_STATUSES = ['open', 'contacted', 'in_progress', 'won', 'lost'];
 
 exports.getLeads = async (req, res) => {
   try {
-    const leads = await leadsService.getLeads();
+    let leads = [];
+    if (process.env.GOOGLE_SHEET_ID) {
+      leads = await sheets.getAllLeads();
+    }
     res.json({ success: true, leads });
   } catch (error) {
     console.error('Error fetching leads:', error);
-    res.status(500).json({ success: false, message: 'Failed to fetch leads' });
+    res.status(500).json({ success: false, message: 'Failed to fetch leads from Sheets' });
   }
 };
 
@@ -19,25 +21,20 @@ exports.patchLead = async (req, res) => {
     const { id } = req.params;
     const { status, comment, assignedTo } = req.body;
 
-    // Validate status if provided
     if (status && !VALID_STATUSES.includes(status)) {
       return res.status(400).json({ success: false, message: `Invalid status. Must be one of: ${VALID_STATUSES.join(', ')}` });
     }
 
-    // Update locally (Primary)
-    const updated = await leadsService.updateLead(id, { status, comment, assignedTo });
+    let updated = { id, status, comment, assignedTo };
 
-    // Sync to Google Sheets (Secondary, non-blocking)
     if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY?.includes('BEGIN PRIVATE KEY')) {
-      updateSheetLead(id, { status, comment, assignedTo }).catch(err =>
-        console.error('Failed to update Google Sheet lead:', err.message)
-      );
+      updated = await sheets.updateLead(id, { status, comment, assignedTo });
     }
 
     res.json({ success: true, message: 'Lead updated', lead: updated });
   } catch (error) {
     console.error('Error updating lead:', error);
-    res.status(500).json({ success: false, message: 'Failed to update lead' });
+    res.status(500).json({ success: false, message: 'Failed to update lead in Sheets' });
   }
 };
 
@@ -50,17 +47,28 @@ exports.addNote = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Note text is required' });
     }
 
-    const note = await leadsService.addNote(id, { text: text.trim(), author: author || 'Admin' });
-    res.json({ success: true, note });
+    // Since Google Sheets doesn't have a nested Notes column array, we append notes to the central 'Comment' field.
+    const leads = await sheets.getAllLeads();
+    const lead = leads.find(l => l.id === id);
+    if (!lead) return res.status(404).json({ success: false, message: 'Lead not found' });
+
+    const newAddition = `[Note by ${author || 'Admin'}]: ${text.trim()}`;
+    const updatedComment = lead.comment ? `${lead.comment}\n${newAddition}` : newAddition;
+
+    if (process.env.GOOGLE_SHEET_ID) {
+      await sheets.updateLead(id, { comment: updatedComment });
+    }
+
+    res.json({ success: true, note: { id: Date.now(), text, author: author || 'Admin', createdAt: new Date().toISOString() } });
   } catch (error) {
     console.error('Error adding note:', error);
-    res.status(500).json({ success: false, message: error.message || 'Failed to add note' });
+    res.status(500).json({ success: false, message: error.message || 'Failed to add note to Sheets' });
   }
 };
 
 exports.exportCSV = async (req, res) => {
   try {
-    const leads = await leadsService.getLeads();
+    const leads = await sheets.getAllLeads();
 
     const headers = ['ID', 'Name', 'Email', 'Phone', 'Service', 'Message', 'Status', 'Comment', 'AssignedTo', 'CreatedAt', 'UpdatedAt'];
 
@@ -85,6 +93,6 @@ exports.exportCSV = async (req, res) => {
     res.send(csv);
   } catch (error) {
     console.error('Error exporting CSV:', error);
-    res.status(500).json({ success: false, message: 'Failed to export CSV' });
+    res.status(500).json({ success: false, message: 'Failed to export CSV from Sheets' });
   }
 };
