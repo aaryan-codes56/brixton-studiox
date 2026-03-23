@@ -1,4 +1,4 @@
-# Brixton StudioX ✦ Brand · Create · Grow
+# Brixton StudioX | Brand · Create · Grow
 
 Brixton StudioX is a premium, full-service creative and digital agency based in Palwal, Haryana. We empower businesses, creators, and startups by building high-impact brands through cinema-grade video production, strategic digital marketing, and high-performance digital engineering.
 
