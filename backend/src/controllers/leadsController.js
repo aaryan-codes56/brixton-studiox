@@ -36,16 +36,18 @@ exports.createLead = async (req, res) => {
     // Store locally (Primary)
     await leadsService.saveLead(lead);
 
-    // Fire-and-forget: Google Sheets sync
+    // Vercel Serverless freezes all execution the millisecond res.json() is called.
+    // We MUST await all background processes in parallel before responding.
+    const backgroundTasks = [];
+
     if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_PRIVATE_KEY?.includes('BEGIN PRIVATE KEY')) {
-      appendLead(lead).catch(err => console.error('Failed to sync to Google Sheets:', err.message));
+      backgroundTasks.push(appendLead(lead).catch(err => console.error('Failed to sync to Google Sheets:', err.message)));
     }
 
-    // Fire-and-forget: Email notification to admin
-    sendLeadNotification(lead).catch(err => console.error('Failed to send admin email:', err.message));
+    backgroundTasks.push(sendLeadNotification(lead).catch(err => console.error('Failed to send admin email:', err.message)));
+    backgroundTasks.push(sendClientConfirmation(lead).catch(err => console.error('Failed to send client confirmation:', err.message)));
 
-    // Fire-and-forget: Confirmation email to client
-    sendClientConfirmation(lead).catch(err => console.error('Failed to send client confirmation:', err.message));
+    await Promise.all(backgroundTasks);
 
     res.status(201).json({ success: true, message: 'Your call request has been received!' });
   } catch (error) {
