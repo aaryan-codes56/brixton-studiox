@@ -104,7 +104,6 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-void relative selection:bg-accent-violet/30 overflow-x-hidden">
       <SEO
-        title="Cinematic Branding & Digital Agency"
         description="Brixton StudioX — Premium Video Production, Social Media Management, and Web & App Development for brands that demand excellence. First shoot free."
         url="/"
       />

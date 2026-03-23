@@ -15,7 +15,7 @@ export default function SEO({
   url,
   type = 'website',
 }) {
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Cinematic Branding & Digital Agency`;
+  const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
   const fullUrl = url ? `${SITE_URL}${url}` : SITE_URL;
 
   return (
