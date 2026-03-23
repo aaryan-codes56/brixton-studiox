@@ -36,10 +36,20 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'API is running' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  
-  // Initialize services in background after server is up
+// Export app for Vercel serverless functions
+module.exports = app;
+
+// Only listen if not running on Vercel
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
+    
+    // Initialize services in background after server is up
+    initializeSheet().catch(err => console.error('Sheet init error:', err.message));
+    verifyConnection().catch(err => console.error('Email verify error:', err.message));
+  });
+} else {
+  // If running on Vercel serverless, initialize immediately
   initializeSheet().catch(err => console.error('Sheet init error:', err.message));
   verifyConnection().catch(err => console.error('Email verify error:', err.message));
-});
+}
