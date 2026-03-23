@@ -161,10 +161,107 @@ async function clearSheet() {
   }
 }
 
+// --- TEAM MANAGEMENT ---
+
+/**
+ * Ensures the Team sheet exists
+ */
+async function ensureTeamSheet() {
+  if (!SHEET_ID) return;
+  try {
+    const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId: SHEET_ID });
+    const teamSheetExists = spreadsheet.data.sheets.some(s => s.properties.title === 'Team');
+    
+    if (!teamSheetExists) {
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: SHEET_ID,
+        resource: { requests: [{ addSheet: { properties: { title: 'Team' } } }] }
+      });
+      
+      // Add Headers
+      await sheets.spreadsheets.values.update({
+        spreadsheetId: SHEET_ID,
+        range: 'Team!A1:D1',
+        valueInputOption: 'USER_ENTERED',
+        resource: { values: [['ID', 'Name', 'Role', 'CreatedAt']] },
+      });
+      console.log('Created Team sheet');
+    }
+  } catch (error) {
+    console.warn('Failed to ensure Team sheet:', error.message);
+  }
+}
+
+async function getTeam() {
+  if (!SHEET_ID) return [];
+  await ensureTeamSheet();
+  const getRes = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: 'Team!A2:D',
+  });
+  const rows = getRes.data.values || [];
+  return rows.map(row => ({
+    id: row[0] || '',
+    name: row[1] || '',
+    role: row[2] || '',
+    createdAt: row[3] || ''
+  }));
+}
+
+async function addTeamMember(member) {
+  if (!SHEET_ID) return;
+  await ensureTeamSheet();
+  const row = [member.id, member.name, member.role, member.createdAt];
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SHEET_ID,
+    range: 'Team!A:D',
+    valueInputOption: 'USER_ENTERED',
+    insertDataOption: 'INSERT_ROWS',
+    resource: { values: [row] },
+  });
+}
+
+async function deleteTeamMember(id) {
+  if (!SHEET_ID) return;
+  await ensureTeamSheet();
+  const getRes = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: 'Team!A:D',
+  });
+  const rows = getRes.data.values;
+  if (!rows) throw new Error('Team is empty');
+  
+  const rowIndex = rows.findIndex(row => row[0] === id);
+  if (rowIndex === -1) throw new Error('Member not found');
+  
+  const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId: SHEET_ID });
+  const teamSheet = spreadsheet.data.sheets.find(s => s.properties.title === 'Team');
+  const sheetNumericId = teamSheet.properties.sheetId;
+
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId: SHEET_ID,
+    resource: {
+      requests: [{
+        deleteDimension: {
+          range: {
+            sheetId: sheetNumericId,
+            dimension: "ROWS",
+            startIndex: rowIndex, // Since rows array includes header, index exactly matches API's 0-based index.
+            endIndex: rowIndex + 1
+          }
+        }
+      }]
+    }
+  });
+}
+
 module.exports = {
   initializeSheet,
   appendLead,
   getAllLeads,
   updateLead,
-  clearSheet // Exported
+  clearSheet,
+  getTeam,
+  addTeamMember,
+  deleteTeamMember
 };
