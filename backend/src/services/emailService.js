@@ -11,14 +11,8 @@ const createTransporter = () => {
   if (!user || !pass) return null;
 
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // use TLS instead of SSL to bypass Render port 465 blackhole
-    auth: { user, pass },
-    // Some networks/environments (like Render) might need these tweaks
-    tls: {
-      rejectUnauthorized: false
-    }
+    service: 'gmail',
+    auth: { user, pass }
   });
 };
 
