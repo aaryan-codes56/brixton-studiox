@@ -1,7 +1,10 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-const LEADS_FILE = path.join(__dirname, '../../data/leads.json');
+const isVercel = !!process.env.VERCEL;
+const LEADS_FILE = isVercel
+  ? path.join('/tmp', 'leads.json')
+  : path.join(__dirname, '../../data/leads.json');
 
 // Ensure data directory exists
 async function ensureDataDir() {

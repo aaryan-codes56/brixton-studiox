@@ -1,7 +1,8 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-const DATA_DIR = path.join(__dirname, '../../data');
+const isVercel = !!process.env.VERCEL;
+const DATA_DIR = isVercel ? '/tmp' : path.join(__dirname, '../../data');
 const TEAM_FILE = path.join(DATA_DIR, 'team.json');
 
 async function ensureFile() {
