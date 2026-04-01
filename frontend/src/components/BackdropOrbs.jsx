@@ -4,6 +4,7 @@ const BackdropOrbs = () => {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <motion.div
+        style={{ willChange: 'transform' }}
         animate={{
           x: [0, 100, -50, 0],
           y: [0, -100, 50, 0],
@@ -17,6 +18,7 @@ const BackdropOrbs = () => {
         className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] rounded-full bg-accent-violet/30 blur-[160px]"
       />
       <motion.div
+        style={{ willChange: 'transform' }}
         animate={{
           x: [0, -150, 100, 0],
           y: [0, 150, -50, 0],
@@ -30,6 +32,7 @@ const BackdropOrbs = () => {
         className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-accent-ice/15 blur-[120px]"
       />
       <motion.div
+        style={{ willChange: 'transform' }}
         animate={{
           x: [0, 100, -100, 0],
           y: [0, 50, -150, 0],

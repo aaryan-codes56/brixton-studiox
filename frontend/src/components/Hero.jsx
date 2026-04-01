@@ -48,6 +48,7 @@ const Hero = () => {
         transition={{ type: 'spring', stiffness: 100, damping: 30 }}
         className="absolute inset-[-150px] pointer-events-none opacity-80"
         style={{
+          willChange: 'transform',
           backgroundImage: `
             linear-gradient(rgba(124, 58, 237, 0.1) 1.5px, transparent 1.5px),
             linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1.5px, transparent 1.5px)
@@ -60,13 +61,14 @@ const Hero = () => {
       
       {/* Secondary sharper grid for definition */}
       <motion.div 
+        style={{ willChange: 'transform' }}
         animate={{ x: mousePos.x * 0.35, y: mousePos.y * 0.35 }}
         transition={{ type: 'spring', stiffness: 80, damping: 25 }}
         className="absolute inset-[-150px] bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40"
       ></motion.div>
       
       {/* Noise Texture for that premium grainy look */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E')] pointer-events-none"></div>
+      <div className="absolute inset-0 hidden md:block bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E')] pointer-events-none"></div>
 
       {/* Frame Corners */}
       <div className="absolute inset-8 pointer-events-none hidden md:block">

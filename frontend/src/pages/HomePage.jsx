@@ -44,6 +44,7 @@ const StatsBar = () => {
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
           
           <motion.div 
+            style={{ willChange: 'transform' }}
             className="flex items-center gap-12 md:gap-24 px-12 w-max"
             animate={{ x: [0, -1500] }} // Adjusted for 5 items
             transition={{ 
