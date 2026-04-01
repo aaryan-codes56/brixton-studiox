@@ -98,7 +98,7 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
             transition={{ type: 'tween', duration: 0.4 }}
-            className="fixed inset-0 min-h-screen bg-void/90 backdrop-blur-3xl z-40 flex flex-col items-center justify-center space-y-8 px-6"
+            className="fixed inset-0 min-h-screen bg-void z-40 flex flex-col items-center justify-center space-y-8 px-6"
           >
             {links.map((link, i) => {
                const isActive = location.pathname === link.to;

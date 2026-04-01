@@ -227,7 +227,7 @@ export default function PricingPage() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative px-6 py-2.5 rounded-xl font-body font-bold text-[11px] tracking-widest uppercase transition-all duration-500 overflow-hidden ${
+                  className={`relative shrink-0 whitespace-nowrap px-6 py-2.5 rounded-xl font-body font-bold text-[11px] tracking-widest uppercase transition-all duration-500 overflow-hidden ${
                     activeTab === tab ? 'text-void' : 'text-text-secondary hover:text-text-white'
                   }`}
                 >
