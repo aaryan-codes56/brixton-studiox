@@ -17,6 +17,18 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   const links = [
     { name: 'Services', to: '/services' },
     { name: 'Work', to: '/work' },
@@ -33,8 +45,7 @@ const Navbar = () => {
           : 'bg-transparent border-transparent h-[100px]'} 
         flex items-center`}
     >
-      <div className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Logo Group with Magnetic feedback */}
+      <div className="relative z-50 w-full max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo Group */}
         <Link to="/" className="flex items-center gap-1.5 cursor-pointer hover:opacity-90 transition-opacity">
           <div className="relative w-14 h-14 flex items-center justify-center">
@@ -87,17 +98,24 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '-100%', opacity: 0 }}
             transition={{ type: 'tween', duration: 0.4 }}
-            className="fixed inset-0 min-h-screen bg-void z-40 flex flex-col items-center justify-center space-y-8 px-6"
+            className="fixed inset-0 min-h-screen bg-void/90 backdrop-blur-3xl z-40 flex flex-col items-center justify-center space-y-8 px-6"
           >
-            {links.map((link) => {
+            {links.map((link, i) => {
                const isActive = location.pathname === link.to;
                return (
                 <Link
                   key={link.name}
                   to={link.to}
                   onClick={() => setIsOpen(false)}
-                  className={`text-[48px] font-body font-semibold ${isActive ? 'text-accent-violet-light' : 'text-text-white'}`}
+                  className={`group relative text-[24px] sm:text-[32px] font-display uppercase tracking-[0.15em] transition-all duration-300 flex items-center justify-center
+                    ${isActive ? 'text-text-white font-medium' : 'text-text-secondary font-light hover:text-text-white'}`}
                 >
+                  {isActive && (
+                    <motion.span 
+                      layoutId="mobileNavActive"
+                      className="absolute -left-6 w-1.5 h-1.5 rounded-full bg-accent-violet shadow-[0_0_10px_rgba(124,58,237,0.8)]"
+                    />
+                  )}
                   {link.name}
                 </Link>
                );

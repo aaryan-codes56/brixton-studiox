@@ -126,7 +126,7 @@ const BookingForm = () => {
           <div className="flex-1 h-px bg-glassBorder"></div>
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a href="https://wa.me/919754593311" target="_blank" rel="noreferrer" className="flex-1 max-w-[240px] flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-green-500/50 hover:bg-green-500/10 text-green-400 font-medium transition-colors">
             <MessageCircle size={20} />
             WhatsApp Us

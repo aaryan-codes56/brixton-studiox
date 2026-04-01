@@ -79,7 +79,7 @@ const Testimonials = () => {
           {extendedTestimonials.map((item, idx) => (
             <div 
               key={idx}
-              className="w-[350px] md:w-[450px] shrink-0 p-8 rounded-3xl bg-card border border-border-subtle backdrop-blur-md flex flex-col justify-between hover:border-white/20 transition-colors group"
+              className="w-[300px] sm:w-[350px] md:w-[450px] shrink-0 p-8 rounded-3xl bg-card border border-border-subtle backdrop-blur-md flex flex-col justify-between hover:border-white/20 transition-colors group"
             >
               <div className="mb-6">
                 <div className="flex gap-1 mb-4">
